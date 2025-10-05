@@ -746,6 +746,10 @@
       font-size: 1rem;
     }
 
+    .selected-item-icon:empty {
+      display: none;
+    }
+
     .selected-item-name {
       font-weight: 500;
       color: var(--text-primary);
@@ -832,6 +836,10 @@
 
     .menu-icon {
       font-size: 1rem;
+    }
+
+    .menu-preview .menu-icon:empty {
+      display: none;
     }
 
     .menu-text {
@@ -1635,6 +1643,97 @@
 
     /* === unicode-customization.css === */
     /* Unicode Customization Styles */
+    .unicode-settings {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .unicode-settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .unicode-settings-header h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .unicode-settings-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: var(--space-xs);
+    }
+
+    .unicode-settings-note {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 54px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--gray-300);
+      border-radius: var(--radius-xl);
+      transition: background var(--transition-normal);
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      top: 3px;
+      background: var(--white);
+      border-radius: 50%;
+      transition: transform var(--transition-normal);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: var(--primary);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(26px);
+    }
+
+    .toggle-switch input:focus-visible + .toggle-slider {
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
     .unicode-customization {
       margin-top: var(--space-lg);
       padding: var(--space-md);
@@ -1654,6 +1753,19 @@
       margin: 0 0 var(--space-md) 0;
       color: var(--text-secondary);
       font-size: 0.875rem;
+    }
+
+    .unicode-customization.disabled {
+      opacity: 0.6;
+    }
+
+    .unicode-disabled-message {
+      padding: var(--space-sm);
+      background: var(--info-light);
+      border-radius: var(--radius-md);
+      color: var(--info-dark);
+      font-size: 0.875rem;
+      margin-bottom: var(--space-md);
     }
 
     /* Simple Unicode Section */
@@ -1732,6 +1844,13 @@
       user-select: none;
     }
 
+    .symbol-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+      border-color: var(--border);
+      background: var(--white);
+    }
+
     .symbol-btn:hover {
       background: var(--primary-light);
       border-color: var(--primary);
@@ -1794,6 +1913,24 @@
     }
 
     /* Dark theme adjustments */
+    [data-theme="dark"] .unicode-settings {
+      background: var(--gray-800);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .toggle-slider {
+      background: var(--gray-600);
+    }
+
+    [data-theme="dark"] .toggle-switch input:checked + .toggle-slider {
+      background: var(--primary);
+    }
+
+    [data-theme="dark"] .unicode-disabled-message {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--info-light);
+    }
+
     [data-theme="dark"] .unicode-customization {
       background: var(--gray-800);
       border-color: var(--gray-700);
@@ -2234,10 +2371,27 @@
                 <small>Deja en blanco para usar "Mi Menú" por defecto</small>
               </div>
               
+              <div class="unicode-settings">
+                <div class="unicode-settings-header">
+                  <div>
+                    <h4>Iconos Unicode en Acciones</h4>
+                    <p class="unicode-settings-description">Activa o desactiva los símbolos que acompañan a cada acción en tu menú.</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggleUnicodeIcons" checked aria-label="Activar iconos Unicode en acciones">
+                    <span class="toggle-slider" aria-hidden="true"></span>
+                  </label>
+                </div>
+                <p class="unicode-settings-note">Cuando esta opción está desactivada, los nombres de las acciones se generan sin caracteres Unicode.</p>
+              </div>
+              
               <div class="unicode-customization">
                 <h4>Personalizar Caracteres Unicode</h4>
                 <p>Selecciona una acción y elige un símbolo Unicode para personalizarla:</p>
                 <p class="unicode-note"><strong>Nota:</strong> Esta es una lista limitada de caracteres Unicode compatibles. Solo se muestran símbolos tradicionales, no emojis.</p>
+                <div class="unicode-disabled-message" id="unicodeDisabledMessage" hidden>
+                  <p>La personalización de símbolos está desactivada. Activa "Iconos Unicode en Acciones" para volver a utilizar esta sección.</p>
+                </div>
                 
                 <div class="unicode-simple-section">
                   <div class="action-selector">
@@ -2577,6 +2731,7 @@
     const OWNER_INFO_KEY = 'nickelmenu-owner-info';
     const THEME_STORAGE_KEY = 'nickelmenu-theme';
     const WELCOME_STORAGE_KEY = 'nickelmenu-has-visited';
+    const UNICODE_SETTING_KEY = 'nickelmenu-use-unicode-icons';
     const ALL_CONTEXT_ID = '__all__';
 
     class NickelMenuBuilder {
@@ -2585,6 +2740,7 @@
         this.selectedContexts = new Set();
         this.selectedActions = new Map();
         this.customUnicode = new Map(); // Store custom Unicode characters
+        this.useUnicodeIcons = true; // Track whether Unicode icons should be used
         this.customIcon = null; // Store custom icon data
         this.selectedActionForUnicode = null; // Currently selected action for Unicode customization
         this.contextDefinitions = {}; // Cache contexts metadata
@@ -2637,12 +2793,14 @@
           actions: [],
           experimental: {}
         };
-    
+        this.useUnicodeIcons = this.loadUnicodePreference();
+
         this.init();
       }
 
       init() {
         this.setupEventListeners();
+        this.syncUnicodeToggleUI();
         this.applySavedTheme();
         this.populateContexts();
         this.populateActions();
@@ -2672,7 +2830,15 @@
     
         // Theme toggle
         document.getElementById('btnTheme')?.addEventListener('click', () => this.toggleTheme());
-    
+
+        // Unicode icons toggle
+        const unicodeToggle = document.getElementById('toggleUnicodeIcons');
+        if (unicodeToggle) {
+          unicodeToggle.addEventListener('change', (event) => {
+            this.handleUnicodeToggle(event.target.checked);
+          });
+        }
+
         // Menu name configuration
         document.querySelector('#menuName')?.addEventListener('input', () => this.updatePreview());
 
@@ -2771,6 +2937,16 @@
         document.getElementById('btnValidate')?.addEventListener('click', () => this.validateConfiguration());
         document.getElementById('btnToggleRaw')?.addEventListener('click', () => this.toggleRawView());
         document.getElementById('fileInput')?.addEventListener('change', (event) => this.handleFileImport(event));
+      }
+
+      syncUnicodeToggleUI() {
+        const toggle = document.getElementById('toggleUnicodeIcons');
+        if (toggle) {
+          toggle.checked = this.useUnicodeIcons;
+          toggle.setAttribute('aria-checked', this.useUnicodeIcons ? 'true' : 'false');
+        }
+
+        this.updateUnicodeCustomizationState();
       }
 
       // NickelMenu Contexts based on documentation
@@ -3644,16 +3820,19 @@
           return;
         }
 
-        container.innerHTML = Array.from(this.selectedActions.values()).map(action => `
+        container.innerHTML = Array.from(this.selectedActions.values()).map(action => {
+          const iconDisplay = this.useUnicodeIcons ? (this.customUnicode.get(action.id) || action.icon || '') : '';
+          return `
             <div class="selected-item">
               <div class="selected-item-header">
-                <span class="selected-item-icon">${this.customUnicode.get(action.id) || action.icon}</span>
+                <span class="selected-item-icon">${iconDisplay || ''}</span>
                 <span class="selected-item-name">${action.name}</span>
                 <button class="btn-remove" data-action-id="${action.id}" aria-label="Quitar ${action.name}">×</button>
               </div>
               <div class="selected-item-context">Contexto: ${this.getContextLabel(action.context)}</div>
             </div>
-        `).join('');
+          `;
+        }).join('');
     
         // Add event listeners for remove buttons
         container.querySelectorAll('.btn-remove').forEach(btn => {
@@ -3852,16 +4031,79 @@
       }
 
       createMenuItem(action) {
-        // Use custom Unicode character if available, otherwise use original icon
         const customIcon = this.customUnicode.get(action.id);
-    
-        if (customIcon) {
-          // Replace the icon in the command with the custom Unicode character
-          const newCommand = action.command.replace(action.icon, customIcon);
-          return newCommand;
+        let command = action.command;
+
+        if (!this.useUnicodeIcons) {
+          return this.removeIconFromCommand(action, command, customIcon);
         }
-        // Use the original command as-is
-        return action.command;
+
+        if (customIcon && action.icon) {
+          return command.replace(action.icon, customIcon);
+        }
+
+        return command;
+      }
+
+      removeIconFromCommand(action, command, customIcon) {
+        const firstColon = command.indexOf(':');
+        if (firstColon === -1) {
+          return command;
+        }
+
+        const secondColon = command.indexOf(':', firstColon + 1);
+        if (secondColon === -1) {
+          return command;
+        }
+
+        const labelColon = command.indexOf(':', secondColon + 1);
+        if (labelColon === -1) {
+          return command;
+        }
+
+        const labelSection = command.slice(secondColon + 1, labelColon);
+        const leadingWhitespace = labelSection.match(/^\s*/)?.[0] ?? '';
+        const trailingWhitespace = labelSection.match(/\s*$/)?.[0] ?? '';
+        const labelContent = labelSection.trim();
+
+        if (!labelContent) {
+          return command;
+        }
+
+        const iconCandidates = [];
+        if (customIcon) iconCandidates.push(customIcon);
+        if (action?.icon) iconCandidates.push(action.icon);
+
+        let updatedContent = labelContent;
+        let iconRemoved = false;
+
+        for (const candidate of iconCandidates) {
+          if (candidate && labelContent.startsWith(candidate)) {
+            updatedContent = labelContent.slice(candidate.length).trimStart();
+            iconRemoved = true;
+            break;
+          }
+        }
+
+        if (!iconRemoved) {
+          const labelChars = Array.from(labelContent);
+          const [firstChar, ...rest] = labelChars;
+          if (firstChar && firstChar.codePointAt(0) > 0x7f) {
+            updatedContent = rest.join('').trimStart();
+            iconRemoved = true;
+          }
+        }
+
+        if (!iconRemoved) {
+          return command;
+        }
+
+        if (!updatedContent) {
+          updatedContent = action?.name || labelContent;
+        }
+
+        const newLabelSection = `${leadingWhitespace}${updatedContent}${trailingWhitespace}`;
+        return command.slice(0, secondColon + 1) + newLabelSection + command.slice(labelColon);
       }
 
       updateConfigPreview() {
@@ -3899,6 +4141,7 @@
         if (!preview) return;
 
         const menuName = document.getElementById('menuName')?.value.trim() || 'Mi Menú';
+        const headerIcon = this.useUnicodeIcons ? '📚' : '';
         const menuItems = Array.from(this.selectedActions.values())
           .filter(action => this.selectedContexts.has(action.context))
           .slice(0, 5); // Show max 5 items in preview
@@ -3906,7 +4149,7 @@
         if (menuItems.length === 0) {
           preview.innerHTML = `
             <div class="menu-item">
-              <span class="menu-icon">📚</span>
+              <span class="menu-icon">${headerIcon}</span>
               <span class="menu-text">${menuName}</span>
             </div>
           `;
@@ -3915,15 +4158,17 @@
 
         preview.innerHTML = `
           <div class="menu-item">
-            <span class="menu-icon">📚</span>
+            <span class="menu-icon">${headerIcon}</span>
             <span class="menu-text">${menuName}</span>
           </div>
-          ${menuItems.map(action => `
+          ${menuItems.map(action => {
+            const iconDisplay = this.useUnicodeIcons ? (this.customUnicode.get(action.id) || action.icon || '') : '';
+            return `
             <div class="menu-item">
-              <span class="menu-icon">${this.customUnicode.get(action.id) || action.icon}</span>
+              <span class="menu-icon">${iconDisplay}</span>
               <span class="menu-text">${action.name}</span>
-            </div>
-          `).join('')}
+            </div>`;
+          }).join('')}
         `;
       }
 
@@ -4099,6 +4344,27 @@
 
         btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
         btn.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      }
+
+      loadUnicodePreference() {
+        try {
+          const stored = localStorage.getItem(UNICODE_SETTING_KEY);
+          if (stored === null) {
+            return true;
+          }
+          return stored === 'true';
+        } catch (error) {
+          console.warn('No se pudo cargar la preferencia de iconos Unicode', error);
+          return true;
+        }
+      }
+
+      saveUnicodePreference(value) {
+        try {
+          localStorage.setItem(UNICODE_SETTING_KEY, value ? 'true' : 'false');
+        } catch (error) {
+          console.warn('No se pudo guardar la preferencia de iconos Unicode', error);
+        }
       }
 
       showModal(modalId) {
@@ -4280,10 +4546,58 @@
         });
       }
 
+      handleUnicodeToggle(isEnabled) {
+        this.useUnicodeIcons = Boolean(isEnabled);
+        this.saveUnicodePreference(this.useUnicodeIcons);
+        this.populateUnicodeCustomization();
+        this.updateSelectedActions();
+        this.updatePreview();
+      }
+
+      updateUnicodeCustomizationState() {
+        const toggle = document.getElementById('toggleUnicodeIcons');
+        if (toggle) {
+          toggle.checked = this.useUnicodeIcons;
+          toggle.setAttribute('aria-checked', this.useUnicodeIcons ? 'true' : 'false');
+        }
+
+        const customization = document.querySelector('.unicode-customization');
+        if (customization) {
+          customization.classList.toggle('disabled', !this.useUnicodeIcons);
+        }
+
+        const disabledMessage = document.getElementById('unicodeDisabledMessage');
+        if (disabledMessage) {
+          disabledMessage.hidden = this.useUnicodeIcons;
+        }
+
+        const selector = document.getElementById('actionSelector');
+        if (selector) {
+          selector.disabled = !this.useUnicodeIcons || this.selectedActions.size === 0;
+        }
+
+        document.querySelectorAll('.symbol-btn').forEach(btn => {
+          btn.disabled = !this.useUnicodeIcons;
+        });
+
+        if (!this.useUnicodeIcons) {
+          this.updateUnicodePreview('🎨', 'Personalización desactivada');
+        } else if (this.selectedActionForUnicode && this.selectedActions.has(this.selectedActionForUnicode)) {
+          const action = this.selectedActions.get(this.selectedActionForUnicode);
+          if (action) {
+            const currentChar = this.customUnicode.get(action.id) || action.icon || '🎨';
+            this.updateUnicodePreview(currentChar, action.name);
+          }
+        } else {
+          this.updateUnicodePreview('🎨', 'Selecciona una acción');
+        }
+      }
+
       // Unicode Customization Methods
       populateUnicodeCustomization() {
         this.populateActionSelector();
         this.populateSymbolsGrid();
+        this.updateUnicodeCustomizationState();
       }
 
       populateActionSelector() {
@@ -4295,6 +4609,15 @@
 
         // Clear existing options except the first one
         selector.innerHTML = '<option value="">Elige una acción...</option>';
+
+        if (!this.useUnicodeIcons) {
+          selector.innerHTML = '<option value="">Activa los iconos Unicode para personalizarlos</option>';
+          selector.disabled = true;
+          this.updateUnicodePreview('🎨', 'Personalización desactivada');
+          return;
+        }
+
+        selector.disabled = unicodeActions.length === 0;
 
         if (unicodeActions.length === 0) {
           selector.innerHTML += '<option value="" disabled>No hay acciones seleccionadas</option>';
@@ -4330,11 +4653,15 @@
         if (!container) return;
 
         container.innerHTML = this.unicodeSymbols.map(symbol => `
-          <button class="symbol-btn" title="${symbol}">${symbol}</button>
+          <button class="symbol-btn" type="button" title="${symbol}" ${this.useUnicodeIcons ? '' : 'disabled'}>${symbol}</button>
         `).join('');
       }
 
       selectActionForUnicode(actionId) {
+        if (!this.useUnicodeIcons) {
+          return;
+        }
+
         this.selectedActionForUnicode = actionId;
     
         if (!actionId) {
@@ -4350,6 +4677,11 @@
       }
 
       selectUnicodeSymbol(symbol) {
+        if (!this.useUnicodeIcons) {
+          this.showToast('Activa los iconos Unicode para personalizarlos.', 'info');
+          return;
+        }
+
         if (!this.selectedActionForUnicode) {
           this.showToast('Selecciona una acción antes de elegir un símbolo.', 'warning');
           return;
