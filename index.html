@@ -3443,156 +3443,37 @@
             },
         
             // Extras
-            {
-              id: 'sketch_pad',
-              name: 'Bloc de Dibujo',
-              description: 'Abre el bloc de dibujo integrado',
-              icon: '✏️',
-              context: 'main',
-              command: 'menu_item :main :Bloc de Dibujo :nickel_extras :sketch_pad',
-              tags: ['extras', 'tools']
-            }
-          ],
-          unicode: [
-            // Unicode Icons Collection - Same functions with Unicode icons
-            {
-              id: 'koreader_unicode',
-              name: 'KOReader',
-              description: 'Lector alternativo KOReader (requiere instalación externa)',
-              icon: '📖',
-              context: 'main',
-              command: 'menu_item :main :📖 KOReader :cmd_spawn :quiet :exec /mnt/onboard/.adds/koreader/koreader.sh',
-              tags: ['reader', 'unicode', 'custom']
-            },
-            {
-              id: 'plato_unicode',
-              name: 'Plato',
-              description: 'Lector alternativo Plato (requiere instalación externa)',
-              icon: '📚',
-              context: 'main',
-              command: 'menu_item :main :📚 Plato :cmd_spawn :quiet :exec /mnt/onboard/.adds/plato/plato.sh',
-              tags: ['reader', 'unicode', 'custom']
-            },
-            {
-              id: 'solitaire_unicode',
-              name: 'Solitario',
-              description: 'Juego de solitario integrado',
-              icon: '🃏',
-              context: 'main',
-              command: 'menu_item :main :🃏 Solitario :nickel_extras :solitaire',
-              tags: ['games', 'unicode', 'entertainment']
-            },
-            {
-              id: 'sudoku_unicode',
-              name: 'Sudoku',
-              description: 'Juego de Sudoku integrado',
-              icon: '🔢',
-              context: 'main',
-              command: 'menu_item :main :🔢 Sudoku :nickel_extras :sudoku',
-              tags: ['games', 'unicode', 'entertainment']
-            },
-            {
-              id: 'sketch_pad_unicode',
-              name: 'Bloc de Dibujo',
-              description: 'Abre el bloc de dibujo integrado',
-              icon: '✏️',
-              context: 'main',
-              command: 'menu_item :main :✏️ Bloc de Dibujo :nickel_extras :sketch_pad',
-              tags: ['extras', 'unicode', 'tools']
-            },
-            {
-              id: 'invert_unicode',
-              name: 'Invertir Pantalla',
-              description: 'Invierte los colores de la pantalla',
-              icon: '🔄',
-              context: 'main',
-              command: 'menu_item :main :🔄 Invertir Pantalla :nickel_setting :toggle :invert\n    chain_success :power :reboot',
-              tags: ['display', 'unicode', 'system']
-            },
-            {
-              id: 'screenshots_unicode',
-              name: 'Capturas de Pantalla',
-              description: 'Activa/desactiva las capturas de pantalla',
-              icon: '☁',
-              context: 'main',
-              command: 'menu_item :main :📸 Capturas :nickel_setting :toggle :screenshots',
-              tags: ['display', 'unicode', 'system']
-            },
-            {
-              id: 'rescan_books_unicode',
-              name: 'Reescanear Biblioteca',
-              description: 'Fuerza el reescaneo completo de la biblioteca',
-              icon: '🔄',
-              context: 'main',
-              command: 'menu_item :main :🔄 Reescanear :nickel_misc :rescan_books_full',
-              tags: ['library', 'unicode', 'books']
-            },
-            {
-              id: 'wifi_toggle_unicode',
-              name: 'Forzar WiFi',
-              description: 'Activa/desactiva WiFi forzadamente',
-              icon: '📶',
-              context: 'main',
-              command: 'menu_item :main :☎ WiFi :nickel_wifi :toggle',
-              tags: ['network', 'unicode', 'wifi']
-            },
-            {
-              id: 'screensaver_toggle_unicode',
-              name: 'Salvapantallas',
-              description: 'Activa/desactiva el salvapantallas',
-              icon: '🖼️',
-              context: 'main',
-              command: 'menu_item :main :🖼️ Salvapantallas :cmd_output :500 :quiet :test -e /mnt/onboard/.kobo/screensaver\n    chain_failure :skip :3\n    chain_success :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver_old /mnt/onboard/.kobo/screensaver\n    chain_success :dbg_toast :Wallpaper Mode\n    chain_always :skip :-1\n    chain_failure :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver /mnt/onboard/.kobo/screensaver_old\n    chain_success :dbg_toast :Cover Art Mode',
-              tags: ['display', 'unicode', 'advanced']
-            },
-            {
-              id: 'usb_toggle_unicode',
-              name: 'USB',
-              description: 'Activa/desactiva la conexión USB',
-              icon: '☀',
-              context: 'main',
-              command: 'menu_item :main :🔌 USB :nickel_misc :force_usb_connection',
-              tags: ['usb', 'unicode', 'connection']
-            },
-            {
-              id: 'sleep_unicode',
-              name: 'Suspender',
-              description: 'Pone el dispositivo en modo suspensión',
-              icon: '😴',
-              context: 'main',
-              command: 'menu_item :main :☂ Suspender :power :sleep',
-              tags: ['power', 'unicode', 'system']
-            },
-            {
-              id: 'reboot_unicode',
-              name: 'Reiniciar',
-              description: 'Reinicia el dispositivo',
-              icon: '🔄',
-              context: 'main',
-              command: 'menu_item :main :★ Reiniciar :power :reboot',
-              tags: ['power', 'unicode', 'system']
-            },
-            {
-              id: 'shutdown_unicode',
-              name: 'Apagar',
-              description: 'Apaga el dispositivo',
-              icon: '⏻',
-              context: 'main',
-              command: 'menu_item :main :⏻ Apagar :power :shutdown',
-              tags: ['power', 'unicode', 'system']
-            },
-            {
-              id: 'dark_mode_unicode',
-              name: 'Modo Oscuro',
-              description: 'Activa/desactiva el modo oscuro',
-              icon: '🌙',
-              context: 'reader',
-              command: 'menu_item :reader :🌙 Modo Oscuro :nickel_setting :toggle :dark_mode',
-              tags: ['display', 'unicode', 'reader']
-            }
-          ],
-          custom: []
-        };
+          {
+            id: 'sketch_pad',
+            name: 'Bloc de Dibujo',
+            description: 'Abre el bloc de dibujo integrado',
+            icon: '✏️',
+            context: 'main',
+            command: 'menu_item :main :Bloc de Dibujo :nickel_extras :sketch_pad',
+            tags: ['extras', 'tools']
+          },
+          {
+            id: 'koreader',
+            name: 'KOReader',
+            description: 'Lector alternativo KOReader (requiere instalación externa)',
+            icon: '📖',
+            context: 'main',
+            command: 'menu_item :main :📖 KOReader :cmd_spawn :quiet :exec /mnt/onboard/.adds/koreader/koreader.sh',
+            tags: ['reader', 'third-party']
+          },
+          {
+            id: 'plato',
+            name: 'Plato',
+            description: 'Lector alternativo Plato (requiere instalación externa)',
+            icon: '📚',
+            context: 'main',
+            command: 'menu_item :main :📚 Plato :cmd_spawn :quiet :exec /mnt/onboard/.adds/plato/plato.sh',
+            tags: ['reader', 'third-party']
+          }
+        ],
+        unicode: [],
+        custom: []
+      };
 
         this.actionsData = actions;
         this.renderActions('popular');
@@ -3660,7 +3541,7 @@
       }
 
       getAllActions() {
-        const categories = ['popular', 'all', 'unicode', 'custom'];
+        const categories = ['popular', 'all', 'custom'];
         const unique = new Map();
 
         categories.forEach(category => {
@@ -3672,6 +3553,19 @@
         });
 
         return Array.from(unique.values());
+      }
+
+      findActionById(actionId) {
+        if (!actionId) return null;
+
+        for (const category in this.actionsData) {
+          const action = this.actionsData[category]?.find?.((item) => item.id === actionId);
+          if (action) {
+            return action;
+          }
+        }
+
+        return null;
       }
 
       getContextLabel(contextId) {
@@ -4516,14 +4410,18 @@
             this.selectedActions.set('dark_mode', this.actionsData.popular.find(a => a.id === 'dark_mode'));
             break;
           case 'unicode':
+            this.useUnicodeIcons = true;
             this.selectedContexts.add('main');
             this.selectedContexts.add('reader');
-            this.selectedActions.set('koreader_unicode', this.actionsData.unicode.find(a => a.id === 'koreader_unicode'));
-            this.selectedActions.set('solitaire_unicode', this.actionsData.unicode.find(a => a.id === 'solitaire_unicode'));
-            this.selectedActions.set('sudoku_unicode', this.actionsData.unicode.find(a => a.id === 'sudoku_unicode'));
-            this.selectedActions.set('pensieve_unicode', this.actionsData.unicode.find(a => a.id === 'pensieve_unicode'));
-            this.selectedActions.set('slumber_unicode', this.actionsData.unicode.find(a => a.id === 'slumber_unicode'));
-            this.selectedActions.set('deluminator', this.actionsData.unicode.find(a => a.id === 'deluminator'));
+
+            ['koreader', 'plato', 'solitaire', 'sudoku', 'dark_mode', 'sleep'].forEach(actionId => {
+              const action = this.findActionById(actionId);
+              if (action) {
+                this.selectedActions.set(action.id, action);
+              }
+            });
+
+            this.syncUnicodeToggleUI();
             break;
         }
 
