@@ -1,0 +1,4709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NickelMenu Builder - Configurador de Menús para Kobo y Ereaders compatibles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* === styles.css === */
+    /* Modern NickelMenu Builder - Redesigned CSS */
+
+    :root {
+      /* Color System */
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #dbeafe;
+      --secondary: #64748b;
+      --secondary-hover: #475569;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --warning-dark: #b45309;
+      --error: #ef4444;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --info: #06b6d4;
+      --info-light: #e0f2fe;
+      --info-dark: #0c4a6e;
+  
+      /* Neutral Colors */
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+  
+      /* Semantic Colors */
+      --background: var(--gray-50);
+      --surface: var(--white);
+      --surface-hover: var(--gray-100);
+      --border: var(--gray-200);
+      --border-hover: var(--gray-300);
+      --text-primary: var(--gray-900);
+      --text-secondary: var(--gray-600);
+      --text-muted: var(--gray-500);
+  
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+  
+      /* Typography */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  
+      /* Border Radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+  
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+      --transition-slow: 350ms ease;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --background: var(--gray-900);
+      --surface: var(--gray-800);
+      --surface-hover: var(--gray-700);
+      --border: var(--gray-700);
+      --border-hover: var(--gray-600);
+      --text-primary: var(--gray-100);
+      --text-secondary: var(--gray-300);
+      --text-muted: var(--gray-400);
+  
+      /* Fix primary light color for dark theme */
+      --primary-light: rgba(37, 99, 235, 0.15);
+    }
+
+    /* Reset and Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-lg) 0;
+      gap: var(--space-lg);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .brand-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .brand-text h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .brand-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .search-container {
+      position: relative;
+      min-width: 300px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md) var(--space-sm) 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      transition: all var(--transition-fast);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: var(--space-md);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .header-buttons {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn:disabled:hover {
+      transform: none !important;
+      filter: none !important;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: var(--white);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: var(--danger-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+    }
+
+    .btn-small {
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.75rem;
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* Main Content */
+    .main {
+      padding: var(--space-xl) 0;
+    }
+
+    /* Progress Section */
+    .progress-section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .progress-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .progress-header h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .progress-stats {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 8px;
+      background: var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--info));
+      border-radius: var(--radius-sm);
+      transition: width var(--transition-normal);
+      width: 25%;
+    }
+
+    .wizard-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .step:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Dark theme specific fixes for active steps */
+    [data-theme="dark"] .step.active {
+      background: rgba(37, 99, 235, 0.2);
+      border-color: var(--primary);
+    }
+
+    [data-theme="dark"] .step.active .step-title {
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .step.active .step-description {
+      color: var(--text-secondary);
+    }
+
+    .step-number {
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    .step.active .step-number {
+      background: var(--primary-hover);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .step-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: flex-start;
+      height: calc(100vh - 200px);
+      min-height: 600px;
+    }
+
+    @media (max-width: 1200px) {
+      .content-grid {
+        flex-direction: column;
+        gap: var(--space-lg);
+      }
+  
+      .panel-left,
+      .panel-center,
+      .panel-right {
+        flex: 1;
+        min-width: auto;
+      }
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-hover);
+    }
+
+    .panel-header h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .panel-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Panel specific styles */
+    .panel-left {
+      min-width: 300px;
+      flex: 0 0 300px;
+    }
+
+    .panel-center {
+      flex: 1;
+      min-width: 400px;
+    }
+
+    .panel-right {
+      min-width: 350px;
+      flex: 0 0 350px;
+    }
+
+    .panel-tabs {
+      display: flex;
+      gap: var(--space-xs);
+      margin-top: var(--space-md);
+    }
+
+    .tab {
+      padding: var(--space-sm) var(--space-md);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* Dark theme specific fixes for active tabs */
+    [data-theme="dark"] .tab.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* Contexts Grid */
+    .contexts-grid {
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .context-card {
+      padding: var(--space-lg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--surface);
+    }
+
+    .context-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .context-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Dark theme specific fixes for selected context cards */
+    [data-theme="dark"] .context-card.selected {
+      background: rgba(37, 99, 235, 0.2);
+      border-color: var(--primary);
+    }
+
+    [data-theme="dark"] .context-card.selected .context-title {
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .context-card.selected .context-description {
+      color: var(--text-secondary);
+    }
+
+    [data-theme="dark"] .context-card.selected .context-examples small {
+      color: var(--text-muted);
+    }
+
+    .context-icon {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .context-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .context-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .context-examples {
+      margin-top: var(--space-sm);
+    }
+
+    .context-examples small {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    /* Actions Grid */
+    .actions-container {
+      padding: var(--space-lg);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .actions-grid {
+      display: grid;
+      gap: var(--space-md);
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .action-card {
+      padding: var(--space-lg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--surface);
+    }
+
+    .action-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Dark theme specific fixes for selected action cards */
+    [data-theme="dark"] .action-card.selected {
+      background: rgba(37, 99, 235, 0.2);
+      border-color: var(--primary);
+    }
+
+    [data-theme="dark"] .action-card.selected .action-title {
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .action-card.selected .action-description {
+      color: var(--text-secondary);
+    }
+
+    .action-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .action-icon {
+      font-size: 1.25rem;
+    }
+
+    .action-title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .action-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .action-tags {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-hover);
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Dark theme specific fixes for tags */
+    [data-theme="dark"] .tag {
+      background: var(--gray-700);
+      color: var(--gray-300);
+    }
+
+    /* Selected Actions */
+    .selected-actions-panel {
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    [data-theme="dark"] .selected-actions-panel {
+      background: var(--surface);
+      border-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .selected-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+
+    .selected-header h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .selected-count {
+      background: var(--primary);
+      color: var(--white);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .selected-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: var(--space-sm);
+    }
+
+    .selected-item {
+      padding: var(--space-md);
+      background: var(--surface-hover);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .selected-item-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+
+    .selected-item-icon {
+      font-size: 1rem;
+    }
+
+    .selected-item-name {
+      font-weight: 500;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .btn-remove {
+      background: var(--error);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .selected-item-context {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-xl);
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .empty-state p {
+      font-weight: 500;
+      margin-bottom: var(--space-xs);
+    }
+
+    .empty-state small {
+      font-size: 0.875rem;
+    }
+
+    /* Preview Panel */
+    .preview-container {
+      padding: var(--space-lg);
+    }
+
+    .preview-device {
+      margin-bottom: var(--space-lg);
+    }
+
+    .device-screen {
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      color: var(--white);
+    }
+
+    .device-header {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .menu-preview {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-icon {
+      font-size: 1rem;
+    }
+
+    .menu-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .config-preview {
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-lg);
+    }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+
+    .config-header h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .config-content {
+      background: var(--gray-900);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      overflow-x: auto;
+      color: var(--white);
+    }
+
+    .config-content pre {
+      color: inherit;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.5;
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    [data-theme="dark"] .config-content {
+      background: var(--gray-800);
+    }
+
+    .config-content pre.raw-view {
+      font-size: 0.7rem;
+      line-height: 1.3;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .preview-controls {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    /* Panel Footer */
+    .panel-footer {
+      padding: var(--space-lg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: var(--space-md);
+      justify-content: space-between;
+    }
+
+    /* Validation Message */
+    .validation-message {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .validation-message.success {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .validation-message.error {
+      background: var(--error);
+      color: var(--white);
+    }
+
+    .validation-message.warning {
+      background: var(--warning);
+      color: var(--white);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--space-lg);
+      overflow-y: auto;
+    }
+
+    /* Reset warning styles */
+    .reset-warning {
+      text-align: center;
+      padding: var(--space-lg);
+    }
+
+    .warning-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .reset-warning h4 {
+      color: var(--danger);
+      margin-bottom: var(--space-md);
+    }
+
+    .reset-warning ul {
+      text-align: left;
+      margin: var(--space-md) 0;
+      padding-left: var(--space-lg);
+    }
+
+    .reset-warning li {
+      margin-bottom: var(--space-xs);
+      color: var(--text-secondary);
+    }
+
+    .reset-warning p {
+      margin: var(--space-md) 0;
+      color: var(--text-secondary);
+    }
+
+    .reset-warning strong {
+      color: var(--danger);
+    }
+
+    .modal[hidden] {
+      display: none;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      max-width: 600px;
+      width: 100%;
+      margin: var(--space-lg) auto;
+      max-height: calc(100vh - 2rem);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: var(--space-xs);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      padding: var(--space-lg);
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .modal-footer {
+      padding: var(--space-lg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: var(--space-md);
+      justify-content: flex-end;
+    }
+
+    /* Templates Grid */
+    .templates-grid {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .template-card {
+      padding: var(--space-lg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .template-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .template-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Dark theme specific fixes for selected template cards */
+    [data-theme="dark"] .template-card.selected {
+      background: rgba(37, 99, 235, 0.2);
+      border-color: var(--primary);
+    }
+
+    [data-theme="dark"] .template-card.selected h4 {
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .template-card.selected p {
+      color: var(--text-secondary);
+    }
+
+    [data-theme="dark"] .template-card.selected li {
+      color: var(--text-secondary);
+    }
+
+    .template-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .template-card h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .template-card p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .template-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .template-card li {
+      padding: var(--space-xs) 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .template-card li:before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 600;
+      margin-right: var(--space-sm);
+    }
+
+    /* Welcome Content */
+    .welcome-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+
+    .welcome-section {
+      padding: var(--space-lg);
+      background: var(--surface-hover);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .welcome-section h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .welcome-section p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-sm);
+    }
+
+    .welcome-section ol,
+    .welcome-section ul {
+      padding-left: var(--space-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    .welcome-section li {
+      margin-bottom: var(--space-sm);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .welcome-section strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .welcome-section code {
+      background: var(--surface);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    /* Help Content */
+    .help-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+
+    .help-section h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .help-section ol,
+    .help-section ul {
+      padding-left: var(--space-lg);
+    }
+
+    .help-section li {
+      margin-bottom: var(--space-sm);
+      color: var(--text-secondary);
+    }
+
+    .help-section code {
+      background: var(--surface-hover);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: var(--space-xl) 0;
+      margin-top: var(--space-2xl);
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+
+    .footer-info p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin: 0;
+    }
+
+    .footer-disclaimer {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 var(--space-md);
+      }
+  
+      .header-content {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+  
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+  
+      .search-container {
+        min-width: auto;
+        flex: 1;
+      }
+  
+      .wizard-steps {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+      }
+  
+      .step {
+        padding: var(--space-md);
+      }
+  
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+  
+      .modal {
+        padding: var(--space-sm);
+      }
+  
+      .modal-content {
+        margin: var(--space-sm) auto;
+        max-height: calc(100vh - 1rem);
+        max-width: calc(100vw - 1rem);
+      }
+  
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-buttons {
+        flex-wrap: wrap;
+      }
+  
+      .btn {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-sm);
+      }
+  
+      .progress-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+      }
+  
+      .progress-stats {
+        width: 100%;
+        justify-content: space-between;
+      }
+  
+      .progress-bar {
+        width: 150px;
+      }
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-hover);
+      border-radius: var(--radius-sm);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Focus styles */
+    *:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Animation utilities */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn var(--transition-normal);
+    }
+
+    .animate-slide-in {
+      animation: slideIn var(--transition-normal);
+    }
+
+    /* Menu Configuration */
+    .menu-config {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .menu-config label {
+      display: block;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .menu-config input {
+      width: 100%;
+      padding: var(--space-sm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--background);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .menu-config input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .menu-config small {
+      display: block;
+      margin-top: var(--space-xs);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+
+    /* === step-pages.css === */
+    /* Step Pages Styles - Additional CSS for wizard pages */
+
+    /* Step Pages */
+    .step-page {
+      display: none;
+      padding: var(--space-xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: calc(100vh - 200px);
+    }
+
+    .step-content {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .step-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .step-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .step-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Step-specific layouts */
+    .preview-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+
+    .export-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-xl);
+    }
+
+    .actions-step-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .actions-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .selected-actions-panel {
+      position: sticky;
+      top: 120px;
+    }
+
+    .menu-config-section,
+    .preview-section,
+    .config-preview-section,
+    .instructions-section {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      border: 1px solid var(--border);
+    }
+
+    .menu-config-section h3,
+    .preview-section h3,
+    .config-preview-section h3,
+    .instructions-section h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .actions-tabs {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      justify-content: center;
+    }
+
+    .search-container {
+      margin-bottom: var(--space-lg);
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      display: block;
+      padding: var(--space-md);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--background);
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .config-actions {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      justify-content: center;
+    }
+
+    .instructions ol {
+      padding-left: var(--space-lg);
+    }
+
+    .instructions li {
+      margin-bottom: var(--space-md);
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    .instructions code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.875rem;
+    }
+
+    .instructions {
+      color: var(--text-secondary);
+    }
+
+    [data-theme="dark"] .instructions code {
+      background: var(--gray-800);
+      color: var(--text-primary);
+    }
+
+    /* Responsive adjustments for step pages */
+    @media (max-width: 768px) {
+      .step-page {
+        padding: var(--space-md);
+      }
+  
+      .step-content {
+        padding: var(--space-lg);
+      }
+  
+      .preview-layout,
+      .export-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+
+      .actions-step-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .selected-actions-panel {
+        position: static;
+      }
+  
+      .step-header h2 {
+        font-size: 1.5rem;
+      }
+  
+      .step-header p {
+        font-size: 1rem;
+      }
+  
+      .actions-tabs {
+        flex-wrap: wrap;
+      }
+    }
+
+
+    /* === step-navigation.css === */
+    /* Step Navigation Styles */
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+    }
+
+    .step-navigation .btn {
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      justify-content: center;
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Responsive navigation */
+    @media (max-width: 768px) {
+      .step-navigation {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+  
+      .step-navigation .btn {
+        width: 100%;
+      }
+    }
+
+
+    /* === unicode-customization.css === */
+    /* Unicode Customization Styles */
+    .unicode-customization {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .unicode-customization h4 {
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .unicode-customization p {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Simple Unicode Section */
+    .unicode-simple-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .action-selector {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .action-selector label {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .action-select {
+      padding: var(--space-sm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .action-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    /* Unicode Symbols Table */
+    .unicode-symbols-table {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      padding: var(--space-md);
+    }
+
+    .unicode-symbols-table h5 {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+      gap: var(--space-xs);
+      max-height: 300px;
+      overflow-y: auto;
+      padding: var(--space-sm);
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+    }
+
+    .symbol-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .symbol-btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .symbol-btn.selected {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* Unicode Preview */
+    .unicode-preview {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      padding: var(--space-md);
+    }
+
+    .unicode-preview h5 {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .preview-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .preview-icon {
+      font-size: 1.5rem;
+      width: 2rem;
+      text-align: center;
+    }
+
+    .preview-text {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .symbols-grid {
+        grid-template-columns: repeat(12, 1fr);
+      }
+  
+      .symbol-btn {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Dark theme adjustments */
+    [data-theme="dark"] .unicode-customization {
+      background: var(--gray-800);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .action-select {
+      background: var(--gray-800);
+      border-color: var(--gray-600);
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .unicode-symbols-table {
+      background: var(--white);
+      border-color: var(--gray-200);
+      color: var(--gray-900);
+    }
+
+    [data-theme="dark"] .unicode-symbols-table h5 {
+      color: var(--gray-900);
+    }
+
+    [data-theme="dark"] .unicode-preview {
+      background: var(--gray-900);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .symbols-grid {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+    }
+
+    [data-theme="dark"] .symbol-btn {
+      background: var(--white);
+      border-color: var(--gray-200);
+      color: var(--gray-900);
+    }
+
+    [data-theme="dark"] .symbol-btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    [data-theme="dark"] .symbol-btn.selected {
+      color: var(--white);
+    }
+
+    [data-theme="dark"] .preview-item {
+      background: var(--gray-800);
+      border-color: var(--gray-600);
+    }
+
+    /* Custom Icon Upload Styles */
+    .custom-icon-section {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .custom-icon-section h4 {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .icon-upload-area {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .icon-info {
+      padding: var(--space-sm);
+      background: var(--info-light);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--info);
+    }
+
+    .icon-info small {
+      color: var(--info-dark);
+      font-size: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .icon-preview {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .icon-preview img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-sm {
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.75rem;
+    }
+
+    /* Dark theme adjustments for custom icon section */
+    [data-theme="dark"] .custom-icon-section {
+      background: var(--gray-800);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .icon-preview {
+      background: var(--gray-900);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .icon-info {
+      background: rgba(59, 130, 246, 0.1);
+      border-left-color: var(--info);
+    }
+
+    [data-theme="dark"] .icon-info small {
+      color: var(--gray-100);
+    }
+
+    /* Unicode Note Styles */
+    .unicode-note {
+      background: rgba(255, 193, 7, 0.1);
+      border: 1px solid var(--warning);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+      margin: var(--space-sm) 0;
+      font-size: 0.875rem;
+      color: var(--warning-dark);
+    }
+
+    .unicode-note strong {
+      color: var(--warning-dark);
+    }
+
+    /* Dark theme override for unicode note */
+    [data-theme="dark"] .unicode-note {
+      background: rgba(255, 193, 7, 0.1);
+      border-color: var(--warning);
+      color: var(--warning-light);
+    }
+
+    [data-theme="dark"] .unicode-note strong {
+      color: var(--warning-light);
+    }
+
+    /* Owner Information Editor Styles */
+    .owner-info-editor {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .owner-info-editor h4 {
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .owner-info-editor p {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .owner-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: var(--space-sm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .owner-preview {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .owner-preview h5 {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .owner-preview pre {
+      background: var(--gray-50);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin: 0;
+    }
+
+    /* Dark theme adjustments for owner editor */
+    [data-theme="dark"] .owner-info-editor {
+      background: var(--gray-800);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .form-group input,
+    [data-theme="dark"] .form-group textarea {
+      background: var(--gray-900);
+      border-color: var(--gray-600);
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .owner-preview {
+      background: var(--gray-900);
+      border-color: var(--gray-700);
+    }
+
+    [data-theme="dark"] .owner-preview pre {
+      background: var(--gray-800);
+      color: var(--text-primary);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-icon">📚</div>
+          <div class="brand-text">
+            <h1>NickelMenu Builder</h1>
+            <span class="brand-subtitle">Configurador de menús para Kobo y Ereaders compatibles</span>
+          </div>
+        </div>
+        
+        <div class="header-actions">
+          <div class="header-buttons">
+            <button class="btn btn-secondary" id="btnResetTop">
+              <span class="btn-icon" aria-hidden="true">↻</span>
+              <span class="btn-label">Iniciar desde cero</span>
+            </button>
+            <button class="btn btn-ghost" id="btnTheme">
+              <span class="btn-icon" aria-hidden="true">🌙</span>
+              <span class="btn-label">Tema oscuro</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <!-- Progress Indicator -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <h2>Configuración del Menú</h2>
+          <div class="progress-stats">
+            <span id="progressText">Paso 1 de 4</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="wizard-steps" id="wizardSteps">
+          <div class="step active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-title">Contextos</div>
+              <div class="step-description">Selecciona dónde aparecerá el menú</div>
+            </div>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-title">Acciones</div>
+              <div class="step-description">Elige las funciones que necesitas</div>
+            </div>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-title">Personalizar</div>
+              <div class="step-description">Ajusta nombres y opciones</div>
+            </div>
+          </div>
+          <div class="step" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <div class="step-title">Exportar</div>
+              <div class="step-description">Descarga tu configuración</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step Pages -->
+      <!-- Step 1: Contexts -->
+      <div class="step-page" data-step="1">
+        <div class="step-content">
+          <div class="step-header">
+            <h2>Selecciona los Contextos</h2>
+            <p>Elige dónde quieres que aparezca tu menú personalizado</p>
+          </div>
+          <div class="contexts-grid" id="contextsGrid">
+            <!-- Contexts will be populated by JavaScript -->
+          </div>
+          <div class="step-navigation">
+            <button class="btn btn-secondary btn-prev-step" disabled>
+              <span class="btn-icon">←</span>
+              Anterior
+            </button>
+            <button class="btn btn-primary btn-next-step">
+              Siguiente
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Actions -->
+      <div class="step-page" data-step="2">
+        <div class="step-content">
+          <div class="step-header">
+            <h2>Elige las Acciones</h2>
+            <p>Selecciona las funciones que necesitas para tu menú</p>
+          </div>
+          <div class="actions-step-layout">
+            <div class="actions-column">
+              <div class="actions-tabs">
+                <button class="tab active" data-tab="popular">Populares</button>
+                <button class="tab" data-tab="all">Todas</button>
+              </div>
+              <div class="search-container">
+                <input type="text" id="search" placeholder="Buscar acciones..." class="search-input" autocomplete="off">
+              </div>
+              <div class="actions-grid" id="actionsGrid">
+                <!-- Actions will be populated by JavaScript -->
+              </div>
+            </div>
+            <aside class="selected-actions-panel" aria-live="polite">
+              <div class="selected-header">
+                <h4>Acciones Seleccionadas</h4>
+                <span class="selected-count" id="selectedCount">0</span>
+              </div>
+              <div class="selected-list" id="selectedList">
+                <div class="empty-state">
+                  <div class="empty-icon">📋</div>
+                  <p>No hay acciones seleccionadas</p>
+                  <small>Selecciona acciones del catálogo para comenzar</small>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="step-navigation">
+            <button class="btn btn-secondary btn-prev-step">
+              <span class="btn-icon">←</span>
+              Anterior
+            </button>
+            <button class="btn btn-primary btn-next-step">
+              Siguiente
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Preview -->
+      <div class="step-page" data-step="3">
+        <div class="step-content">
+          <div class="step-header">
+            <h2>Personaliza tu Menú</h2>
+            <p>Configura el nombre y revisa cómo se verá</p>
+          </div>
+          <div class="preview-layout">
+            <div class="menu-config-section">
+              <h3>Configuración del Menú</h3>
+              <div class="menu-config">
+                <label for="menuName">Nombre del Menú:</label>
+                <input type="text" id="menuName" placeholder="Mi Menú Personalizado" maxlength="20">
+                <small>Deja en blanco para usar "Mi Menú" por defecto</small>
+              </div>
+              
+              <div class="unicode-customization">
+                <h4>Personalizar Caracteres Unicode</h4>
+                <p>Selecciona una acción y elige un símbolo Unicode para personalizarla:</p>
+                <p class="unicode-note"><strong>Nota:</strong> Esta es una lista limitada de caracteres Unicode compatibles. Solo se muestran símbolos tradicionales, no emojis.</p>
+                
+                <div class="unicode-simple-section">
+                  <div class="action-selector">
+                    <label for="actionSelector">Seleccionar Acción:</label>
+                    <select id="actionSelector" class="action-select">
+                      <option value="">Elige una acción...</option>
+                    </select>
+                  </div>
+                  
+                  <div class="unicode-symbols-table">
+                    <h5>Símbolos Unicode Disponibles</h5>
+                    <div class="symbols-grid" id="symbolsGrid">
+                      <!-- Unicode symbols will be populated by JavaScript -->
+                    </div>
+                  </div>
+                  
+                  <div class="unicode-preview">
+                    <h5>Vista Previa</h5>
+                    <div class="preview-item" id="unicodePreview">
+                      <span class="preview-icon">🎨</span>
+                      <span class="preview-text">Selecciona una acción</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Owner Information Editor -->
+              <div class="owner-info-editor">
+                <h4>Información del Propietario</h4>
+                <p>Edita la información que se mostrará cuando selecciones "Información del Propietario":</p>
+                
+                <div class="owner-form">
+                  <div class="form-group">
+                    <label for="ownerName">Nombre Completo:</label>
+                    <input type="text" id="ownerName" placeholder="Tu Nombre Completo" maxlength="50">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="ownerPhone">Teléfono:</label>
+                    <input type="text" id="ownerPhone" placeholder="+1 234 567 8900" maxlength="20">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="ownerEmail">Email:</label>
+                    <input type="email" id="ownerEmail" placeholder="tu@email.com" maxlength="50">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="ownerAddress">Dirección:</label>
+                    <textarea id="ownerAddress" placeholder="Tu dirección completa" rows="3" maxlength="200"></textarea>
+                  </div>
+                  
+                  <div class="form-actions">
+                    <button type="button" id="btnSaveOwner" class="btn btn-primary">Guardar Información</button>
+                    <button type="button" id="btnPreviewOwner" class="btn btn-secondary">Vista Previa</button>
+                  </div>
+                </div>
+                
+                <div class="owner-preview" id="ownerPreview" hidden>
+                  <h5>Vista Previa del Archivo owner.sh:</h5>
+                  <pre id="ownerPreviewContent"></pre>
+                </div>
+              </div>
+              
+              <div class="custom-icon-section">
+                <h4>Icono Personalizado (Opcional)</h4>
+                <div class="icon-upload">
+                  <p>Puedes subir un icono personalizado para tu menú:</p>
+                  <div class="icon-upload-area">
+                    <input type="file" id="iconUpload" accept=".png" style="display: none;">
+                    <button class="btn btn-secondary" id="btnUploadIcon">Subir Icono</button>
+                    <div class="icon-info">
+                      <small>
+                        <strong>Requisitos:</strong> Archivo PNG, máximo 64x64 píxeles, tamaño menor a 10KB
+                      </small>
+                    </div>
+                  </div>
+                  <div class="icon-preview" id="iconPreview" hidden>
+                    <img id="previewImage" alt="Vista previa del icono">
+                    <button class="btn btn-danger btn-sm" id="btnRemoveIcon">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="preview-section">
+              <h3>Vista Previa</h3>
+              <div class="preview-device">
+                <div class="device-screen">
+                  <div class="device-header">Kobo eReader</div>
+                  <div class="menu-preview" id="menuPreview">
+                    <div class="menu-item">
+                      <span class="menu-icon">📚</span>
+                      <span class="menu-text">Mi Menú Personalizado</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-navigation">
+            <button class="btn btn-secondary btn-prev-step">
+              <span class="btn-icon">←</span>
+              Anterior
+            </button>
+            <button class="btn btn-primary btn-next-step">
+              Siguiente
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Export -->
+      <div class="step-page" data-step="4">
+        <div class="step-content">
+          <div class="step-header">
+            <h2>Exporta tu Configuración</h2>
+            <p>Descarga el archivo y cópialo a tu dispositivo Kobo</p>
+          </div>
+          <div class="export-layout">
+            <div class="config-preview-section">
+              <h3>Configuración Generada</h3>
+            <div class="config-preview">
+              <div class="config-header">
+                <h4>Archivo config</h4>
+                <button class="btn btn-small btn-ghost" id="btnToggleRaw">Ver código</button>
+              </div>
+              <div class="config-content">
+                <pre id="configPreview"># Tu configuración aparecerá aquí</pre>
+              </div>
+              <div class="config-actions">
+                <button class="btn btn-secondary" id="btnValidate">Validar</button>
+                <button class="btn btn-primary" id="btnCopy">Copiar</button>
+                <button class="btn btn-primary" id="btnExport">Exportar</button>
+              </div>
+              <div class="validation-message" id="validationMessage" hidden></div>
+            </div>
+            </div>
+            
+            <div class="instructions-section">
+              <h3>Instrucciones de Instalación</h3>
+              <div class="instructions">
+                <ol>
+                  <li>Conecta tu dispositivo Kobo al ordenador mediante USB.</li>
+                  <li>Descarga la configuración (se crea como <code>config</code> sin extensión) y cópiala a <code>KOBOeReader/.adds/nm/config</code>.</li>
+                  <li>¿Subiste un icono PNG? Copia ese archivo a <code>KOBOeReader/.adds/nm/icon/.laptopbook.png</code>.</li>
+                  <li>Si completaste la información del propietario, crea o actualiza <code>KOBOeReader/.adds/owner.sh</code> con el script mostrado en la vista previa.</li>
+                  <li>Expulsa el Kobo de forma segura y espera a que NickelMenu recargue la configuración.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="step-navigation">
+            <button class="btn btn-secondary btn-prev-step">
+              <span class="btn-icon">←</span>
+              Anterior
+            </button>
+            <button class="btn btn-primary btn-next-step" disabled>
+              Finalizar
+              <span class="btn-icon">✓</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Welcome Modal -->
+  <div class="modal" id="welcomeModal" hidden>
+    <div class="modal-backdrop" data-close="welcomeModal"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>¡Bienvenido a NickelMenu Builder! 🎉</h3>
+        <button class="modal-close" data-close="welcomeModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="welcome-content">
+          <div class="welcome-section">
+            <h4>🚀 ¿Qué es NickelMenu Builder?</h4>
+            <p>Una herramienta intuitiva para crear menús personalizados en tu dispositivo Kobo eReader. Con esta app puedes agregar funciones adicionales como reiniciar, cambiar modo oscuro, importar libros y mucho más.</p>
+          </div>
+          
+          <div class="welcome-section">
+            <h4>📱 ¿Cómo funciona?</h4>
+            <ol>
+              <li><strong>Selecciona contextos:</strong> Elige dónde quieres que aparezca tu menú (menú principal, lector, biblioteca, etc.)</li>
+              <li><strong>Elige acciones:</strong> Selecciona las funciones que necesitas del catálogo</li>
+              <li><strong>Personaliza:</strong> Ajusta nombres y opciones según tus preferencias</li>
+              <li><strong>Exporta:</strong> Descarga el archivo config y cópialo a tu Kobo</li>
+            </ol>
+          </div>
+          
+          <div class="welcome-section">
+            <h4>💡 Consejos para empezar</h4>
+            <ul>
+              <li><strong>Personaliza iconos Unicode:</strong> Cambia los símbolos de tus acciones favoritas</li>
+              <li><strong>Información del propietario:</strong> Edita tus datos personales para mostrar en el dispositivo</li>
+              <li><strong>Iconos personalizados:</strong> Sube tu propio icono para el menú principal</li>
+              <li>La <strong>vista previa</strong> te muestra cómo se verá en tu Kobo</li>
+              <li>Puedes <strong>copiar y exportar</strong> tu configuración fácilmente</li>
+            </ul>
+          </div>
+          
+          <div class="welcome-section">
+            <h4>📋 Instalación en tu Kobo</h4>
+            <ol>
+              <li>Conecta tu Kobo al ordenador</li>
+              <li>Copia el archivo generado como <code>KOBOeReader/.adds/nm/config</code> (sin extensión)</li>
+              <li>Expulsa el dispositivo de forma segura</li>
+              <li>¡Tu menú personalizado estará disponible!</li>
+            </ol>
+          </div>
+          
+          <div class="welcome-section">
+            <h4>⚠️ Importante</h4>
+            <p>Esta herramienta es <strong>no oficial</strong> y no está afiliada a Kobo ni a pgaskin. Úsala bajo tu propia responsabilidad. Siempre haz una copia de seguridad antes de modificar tu dispositivo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="welcomeModal">Cerrar</button>
+        <button class="btn btn-primary" data-close="welcomeModal">¡Empezar!</button>
+      </div>
+    </div>
+  </div>
+  <!-- Help Modal -->
+  <div class="modal" id="helpModal" hidden>
+    <div class="modal-backdrop" data-close="helpModal"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Guía de Uso</h3>
+        <button class="modal-close" data-close="helpModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="help-content">
+          <div class="help-section">
+            <h4>🚀 Flujo rápido</h4>
+            <ol>
+              <li>Selecciona uno o varios contextos en el Paso 1. Usa la tarjeta <strong>“Todos los contextos”</strong> si quieres activarlos de una vez.</li>
+              <li>Explora las pestañas de acciones, busca por nombre o etiquetas y marca las que necesites.</li>
+              <li>Personaliza en el Paso 3: asigna iconos Unicode, sube un icono PNG opcional y completa la información del propietario.</li>
+              <li>Valida, copia o exporta tu configuración desde el Paso 4 y sigue las instrucciones de instalación.</li>
+            </ol>
+          </div>
+
+          <div class="help-section">
+            <h4>🧰 Funciones disponibles</h4>
+            <ul>
+              <li>Selección múltiple de contextos con sincronización visual y vista previa en vivo.</li>
+              <li>Catálogo organizado en pestañas, buscador en tiempo real y acciones destacadas.</li>
+              <li>Plantillas predefinidas para comenzar rápido y opción de importar configuraciones existentes.</li>
+              <li>Galería de símbolos Unicode con asignación rápida y vista previa inmediata.</li>
+              <li>Subida de icono PNG (64×64, &lt;10KB) y edición del archivo <code>owner.sh</code> con tus datos.</li>
+              <li>Vista cruda del archivo, validación automática y tema claro/oscuro con un clic.</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h4>📥 Instalar en tu Kobo</h4>
+            <ol>
+              <li>Conecta tu dispositivo Kobo al ordenador mediante USB.</li>
+              <li>Descarga la configuración (el archivo se llama <code>config</code> sin extensión) y cópiala a <code>KOBOeReader/.adds/nm/config</code>.</li>
+              <li>Si subiste un icono, cópialo a <code>KOBOeReader/.adds/nm/icon/.laptopbook.png</code>. Si generas el script del propietario, crea o actualiza <code>KOBOeReader/.adds/owner.sh</code> con la vista previa.</li>
+              <li>Expulsa el Kobo de forma segura y espera a que se reinicie NickelMenu.</li>
+            </ol>
+          </div>
+
+          <div class="help-section">
+            <h4>✨ Trucos y recomendaciones</h4>
+            <ul>
+              <li>Valida siempre antes de exportar para detectar errores comunes.</li>
+              <li>Usa “Ver código” para revisar o copiar rápidamente el archivo completo.</li>
+              <li>Prueba distintas combinaciones de contextos para descubrir acciones nuevas.</li>
+              <li>Activa el tema oscuro desde la cabecera si trabajas en ambientes con poca luz.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-close="helpModal">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>NickelMenu Builder - Herramienta no oficial para configurar menús en dispositivos Kobo</p>
+          <p class="footer-disclaimer">No afiliado a Kobo ni a pgaskin. Hecho con ❤️ para la comunidad.</p>
+        </div>
+        <div class="footer-actions">
+          <button class="btn btn-ghost btn-small" id="btnWelcome">Bienvenida</button>
+          <button class="btn btn-ghost btn-small" id="btnHelp">Ayuda</button>
+          <button class="btn btn-danger btn-small" id="btnReset">Limpiar Todo</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reset Confirmation Modal -->
+  <div class="modal" id="resetModal" hidden>
+    <div class="modal-backdrop" data-close="resetModal"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚠️ Limpiar Configuración</h3>
+        <button class="modal-close" data-close="resetModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="reset-warning">
+          <div class="warning-icon">⚠️</div>
+          <h4>¿Estás seguro de que quieres limpiar todo?</h4>
+          <p>Esta acción eliminará:</p>
+          <ul>
+            <li>✅ Todos los contextos seleccionados</li>
+            <li>✅ Todas las acciones seleccionadas</li>
+            <li>✅ Toda la configuración generada</li>
+            <li>✅ El historial de cambios</li>
+          </ul>
+          <p><strong>Esta acción no se puede deshacer.</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="resetModal">Cancelar</button>
+        <button class="btn btn-danger" id="btnConfirmReset">Sí, Limpiar Todo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input -->
+  <input type="file" id="fileInput" accept=".txt,.conf" style="display: none;" />
+  <script>
+    // Modern NickelMenu Builder - JavaScript Application
+
+    const OWNER_INFO_KEY = 'nickelmenu-owner-info';
+    const THEME_STORAGE_KEY = 'nickelmenu-theme';
+    const WELCOME_STORAGE_KEY = 'nickelmenu-has-visited';
+    const ALL_CONTEXT_ID = '__all__';
+
+    class NickelMenuBuilder {
+      constructor() {
+        this.currentStep = 1;
+        this.selectedContexts = new Set();
+        this.selectedActions = new Map();
+        this.customUnicode = new Map(); // Store custom Unicode characters
+        this.customIcon = null; // Store custom icon data
+        this.selectedActionForUnicode = null; // Currently selected action for Unicode customization
+        this.contextDefinitions = {}; // Cache contexts metadata
+        this.availableContexts = [];
+        this.ownerInfo = {
+          name: '',
+          phone: '',
+          email: '',
+          address: ''
+        };
+        this.unicodeSymbols = [
+          // Geometric shapes
+          '★', '☆', '◆', '◇', '■', '□', '●', '○', '▲', '△', '▼', '▽', '◄', '►', '◀', '▶',
+          '◯', '◮', '◭', '◬', '◫', '◪', '◩', '◨', '◧', '◦', '◥', '◤', '◣', '◢', '◡', '◠',
+      
+          // Arrows
+          '←', '→', '↑', '↓', '↖', '↗', '↘', '↙', '⇐', '⇒', '⇑', '⇓', '↔', '↕', '⟵', '⟶',
+      
+          // Playing cards
+          '♥', '♠', '♣', '♦',
+      
+          // Weather and nature
+          '☀', '☁', '☂', '☃', '☄', '★', '☆', '☇', '☈', '☉', '☊', '☋', '☌', '☍', '☎', '☏',
+      
+          // Symbols
+          '☐', '☑', '☒', '☓', '☔', '☕', '☖', '☗', '☘', '☙', '☚', '☛', '☜', '☝', '☞', '☟',
+          '☠', '☡', '☢', '☣', '☤', '☥', '☦', '☧', '☨', '☩', '☪', '☫', '☬', '☭', '☮', '☯',
+          '☰', '☱', '☲', '☳', '☴', '☵', '☶', '☷', '☸', '☹', '☺', '☻', '☼', '☽', '☾', '☿',
+      
+          // Additional symbols
+          '♀', '♂', '♁', '♃', '♄', '♅', '♆', '♇', '♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏',
+          '♐', '♑', '♒', '♓', '♔', '♕', '♖', '♗', '♘', '♙', '♚', '♛', '♜', '♝', '♞', '♟',
+      
+          // Musical symbols
+          '♩', '♪', '♫', '♬', '♭', '♮', '♯', '♰', '♱', '♲', '♳', '♴', '♵', '♶', '♷', '♸',
+          '♹', '♺', '♻', '♼', '♽', '♾', '♿', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅', '⚆', '⚇', '⚈',
+      
+          // Technical symbols
+          '⚉', '⚊', '⚋', '⚌', '⚍', '⚎', '⚏', '⚐', '⚑', '⚒', '⚓', '⚔', '⚕', '⚖', '⚗', '⚘',
+          '⚙', '⚚', '⚛', '⚜', '⚝', '⚞', '⚟', '⚠', '⚡', '⚢', '⚣', '⚤', '⚥', '⚦', '⚧', '⚨',
+          '⚩', '⚪', '⚫', '⚬', '⚭', '⚮', '⚯', '⚰', '⚱', '⚲', '⚳', '⚴', '⚵', '⚶', '⚷', '⚸',
+          '⚹', '⚺', '⚻', '⚼', '⚽', '⚾', '⚿', '⛀', '⛁', '⛂', '⛃', '⛄', '⛅', '⛆', '⛇', '⛈',
+          '⛉', '⛊', '⛋', '⛌', '⛍', '⛎', '⛏', '⛐', '⛑', '⛒', '⛓', '⛔', '⛕', '⛖', '⛗', '⛘',
+          '⛙', '⛚', '⛛', '⛜', '⛝', '⛞', '⛟', '⛠', '⛡', '⛢', '⛣', '⛤', '⛥', '⛦', '⛧', '⛨',
+          '⛩', '⛪', '⛫', '⛬', '⛭', '⛮', '⛯', '⛰', '⛱', '⛲', '⛳', '⛴', '⛵', '⛶', '⛷', '⛸',
+          '⛹', '⛺', '⛻', '⛼', '⛽', '⛾', '⛿'
+        ];
+        this.config = {
+          contexts: {},
+          actions: [],
+          experimental: {}
+        };
+    
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.applySavedTheme();
+        this.populateContexts();
+        this.populateActions();
+        this.updateProgress();
+        this.updatePreview();
+    
+        // Show welcome modal only on first visit
+        this.showWelcomeOnFirstVisit();
+      }
+
+      setupEventListeners() {
+        // Navigation - delegate to support clicks on nested elements within buttons
+        document.addEventListener('click', (event) => {
+          const nextButton = event.target.closest('.btn-next-step');
+          if (nextButton) {
+            event.preventDefault();
+            this.nextStep();
+            return;
+          }
+
+          const prevButton = event.target.closest('.btn-prev-step');
+          if (prevButton) {
+            event.preventDefault();
+            this.prevStep();
+          }
+        });
+    
+        // Theme toggle
+        document.getElementById('btnTheme')?.addEventListener('click', () => this.toggleTheme());
+    
+        // Menu name configuration
+        document.querySelector('#menuName')?.addEventListener('input', () => this.updatePreview());
+
+        // Search actions
+        const searchInput = document.getElementById('search');
+        if (searchInput) {
+          searchInput.addEventListener('input', (event) => {
+            this.filterActions(event.target.value);
+          });
+
+          searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+              event.preventDefault();
+              event.target.value = '';
+              this.filterActions('');
+            }
+          });
+        }
+
+        // Tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+          tab.addEventListener('click', (event) => {
+            this.switchTab(event.currentTarget.dataset.tab);
+          });
+        });
+    
+        // Modals
+        document.getElementById('btnWelcome')?.addEventListener('click', () => this.showModal('welcomeModal'));
+        document.getElementById('btnHelp')?.addEventListener('click', () => this.showModal('helpModal'));
+        document.getElementById('btnReset')?.addEventListener('click', () => this.showModal('resetModal'));
+        document.getElementById('btnResetTop')?.addEventListener('click', () => this.showModal('resetModal'));
+        document.getElementById('btnConfirmReset')?.addEventListener('click', () => this.resetConfiguration());
+    
+        // Modal close handlers
+        document.querySelectorAll('[data-close]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const modalId = e.target.dataset.close;
+            this.closeModal(modalId);
+        
+            // Mark welcome modal as seen when closed
+            if (modalId === 'welcomeModal') {
+              this.markWelcomeAsSeen();
+            }
+          });
+        });
+    
+        // Unicode simple handlers
+        document.getElementById('actionSelector')?.addEventListener('change', (e) => {
+          this.selectActionForUnicode(e.target.value);
+        });
+    
+        // Unicode symbol selection
+        document.addEventListener('click', (e) => {
+          if (e.target.classList.contains('symbol-btn')) {
+            const symbol = e.target.textContent;
+            this.selectUnicodeSymbol(symbol);
+          }
+        });
+    
+        // Custom icon upload handlers
+        document.getElementById('btnUploadIcon')?.addEventListener('click', () => {
+          document.getElementById('iconUpload').click();
+        });
+    
+        document.getElementById('iconUpload')?.addEventListener('change', (e) => {
+          this.handleIconUpload(e);
+        });
+    
+        document.getElementById('btnRemoveIcon')?.addEventListener('click', () => {
+          this.removeCustomIcon();
+        });
+    
+        // Owner information handlers
+        document.getElementById('btnSaveOwner')?.addEventListener('click', () => {
+          this.saveOwnerInfo();
+        });
+    
+        document.getElementById('btnPreviewOwner')?.addEventListener('click', () => {
+          this.previewOwnerInfo();
+        });
+    
+        // Load saved owner info on page load
+        this.loadOwnerInfo();
+    
+        // Copy button handler
+        document.querySelector('#btnCopy')?.addEventListener('click', () => {
+          this.copyConfiguration();
+        });
+    
+        // Export button handler
+        document.querySelector('#btnExport')?.addEventListener('click', () => {
+          this.exportConfiguration();
+        });
+    
+        // Validation and copy
+        document.getElementById('btnValidate')?.addEventListener('click', () => this.validateConfiguration());
+        document.getElementById('btnToggleRaw')?.addEventListener('click', () => this.toggleRawView());
+        document.getElementById('fileInput')?.addEventListener('change', (event) => this.handleFileImport(event));
+      }
+
+      // NickelMenu Contexts based on documentation
+      populateContexts() {
+        const contexts = [
+          {
+            id: 'main',
+            name: 'Menú Principal',
+            description: 'Aparece en el menú principal (esquina superior izquierda o inferior derecha)',
+            icon: '🏠',
+            examples: ['Reiniciar', 'Apagar', 'Modo oscuro', 'Importar libros']
+          },
+          {
+            id: 'reader',
+            name: 'Lector',
+            description: 'Disponible mientras lees un libro',
+            icon: '📖',
+            examples: ['Invertir pantalla', 'Cambiar orientación', 'Modo oscuro']
+          },
+          {
+            id: 'library',
+            name: 'Mis Libros',
+            description: 'Aparece en la sección "Mis Libros"',
+            icon: '📚',
+            examples: ['Importar libros', 'Reescanear biblioteca', 'Sincronizar']
+          },
+          {
+            id: 'browser',
+            name: 'Navegador',
+            description: 'Disponible en el navegador de internet',
+            icon: '🌐',
+            examples: ['Invertir pantalla', 'Salir del navegador']
+          },
+          {
+            id: 'selection',
+            name: 'Menú de Selección',
+            description: 'Aparece cuando seleccionas texto',
+            icon: '✂️',
+            examples: ['Buscar en Google', 'Traducir', 'Copiar texto']
+          }
+        ];
+
+        const container = document.querySelector('#contextsGrid');
+        if (!container) return;
+
+        this.availableContexts = contexts.map(context => context.id);
+        this.contextDefinitions = contexts.reduce((acc, context) => {
+          acc[context.id] = context;
+          return acc;
+        }, {});
+
+        const allContextsCard = `
+          <div class="context-card context-card-all" data-context="${ALL_CONTEXT_ID}">
+            <div class="context-icon">🌍</div>
+            <div class="context-title">Todos los contextos</div>
+            <div class="context-description">Selecciona o deselecciona todos los contextos disponibles</div>
+            <div class="context-examples">
+              <small>Ideal para ver todas las acciones en un solo paso</small>
+            </div>
+          </div>
+        `;
+
+        const regularContextCards = contexts.map(context => `
+          <div class="context-card" data-context="${context.id}">
+            <div class="context-icon">${context.icon}</div>
+            <div class="context-title">${context.name}</div>
+            <div class="context-description">${context.description}</div>
+            <div class="context-examples">
+              <small>Ejemplos: ${context.examples.join(', ')}</small>
+            </div>
+          </div>
+        `);
+
+        container.innerHTML = [allContextsCard, ...regularContextCards].join('');
+
+        // Add click handlers
+        container.querySelectorAll('.context-card').forEach(card => {
+          card.addEventListener('click', () => this.toggleContext(card.dataset.context));
+        });
+      }
+
+      // NickelMenu Actions based on documentation
+      populateActions() {
+        const actions = {
+          popular: [
+            {
+              id: 'reboot',
+              name: 'Reiniciar',
+              description: 'Reinicia el dispositivo Kobo',
+              icon: '★',
+              context: 'main',
+              command: 'menu_item :main :★ Reiniciar :power :reboot',
+              tags: ['power', 'system']
+            },
+            {
+              id: 'shutdown',
+              name: 'Apagar',
+              description: 'Apaga completamente el dispositivo',
+              icon: '⏻',
+              context: 'main',
+              command: 'menu_item :main :☀ Apagar :power :shutdown',
+              tags: ['power', 'system']
+            },
+            {
+              id: 'dark_mode',
+              name: 'Modo Oscuro',
+              description: 'Activa/desactiva el modo oscuro',
+              icon: '🌙',
+              context: 'reader',
+              command: 'menu_item :reader :Modo Oscuro :nickel_setting :toggle :dark_mode',
+              tags: ['display', 'settings']
+            },
+            {
+              id: 'invert_screen',
+              name: 'Invertir Pantalla',
+              description: 'Invierte los colores de la pantalla',
+              icon: '🔄',
+              context: 'reader',
+              command: 'menu_item :reader :Invertir Pantalla :nickel_setting :toggle :invert',
+              tags: ['display', 'accessibility']
+            },
+            {
+              id: 'rescan_books',
+              name: 'Importar Libros',
+              description: 'Reescanear la biblioteca de libros',
+              icon: '📚',
+              context: 'library',
+              command: 'menu_item :library :Importar Libros :nickel_misc :rescan_books_full',
+              tags: ['library', 'books']
+            },
+            {
+              id: 'wifi_toggle',
+              name: 'WiFi',
+              description: 'Activa/desactiva la conexión WiFi',
+              icon: '📶',
+              context: 'main',
+              command: 'menu_item :main :WiFi :nickel_setting :toggle :wifi',
+              tags: ['network', 'settings']
+            }
+          ],
+          all: [
+            // Power Management
+            {
+              id: 'sleep',
+              name: 'Suspender',
+              description: 'Pone el dispositivo en modo suspensión',
+              icon: '😴',
+              context: 'main',
+              command: 'menu_item :main :☂ Suspender :power :sleep',
+              tags: ['power', 'system']
+            },
+            {
+              id: 'reboot',
+              name: 'Reiniciar',
+              description: 'Reinicia el dispositivo Kobo',
+              icon: '★',
+              context: 'main',
+              command: 'menu_item :main :★ Reiniciar :power :reboot',
+              tags: ['power', 'system']
+            },
+            {
+              id: 'shutdown',
+              name: 'Apagar',
+              description: 'Apaga completamente el dispositivo',
+              icon: '⏻',
+              context: 'main',
+              command: 'menu_item :main :☀ Apagar :power :shutdown',
+              tags: ['power', 'system']
+            },
+        
+            // Display Settings
+            {
+              id: 'dark_mode',
+              name: 'Modo Oscuro',
+              description: 'Activa/desactiva el modo oscuro',
+              icon: '🌙',
+              context: 'reader',
+              command: 'menu_item :reader :Modo Oscuro :nickel_setting :toggle :dark_mode',
+              tags: ['display', 'settings']
+            },
+            {
+              id: 'invert_screen',
+              name: 'Invertir Pantalla',
+              description: 'Invierte los colores de la pantalla',
+              icon: '🔄',
+              context: 'reader',
+              command: 'menu_item :reader :Invertir Pantalla :nickel_setting :toggle :invert',
+              tags: ['display', 'accessibility']
+            },
+            {
+              id: 'invert_orientation',
+              name: 'Invertir Orientación',
+              description: 'Invierte la orientación de la pantalla',
+              icon: '🔄',
+              context: 'reader',
+              command: 'menu_item :reader :Invertir Orientación :nickel_orientation :invert',
+              tags: ['display', 'orientation']
+            },
+            {
+              id: 'screenshots',
+              name: 'Capturas de Pantalla',
+              description: 'Activa/desactiva las capturas de pantalla',
+              icon: '☁',
+              context: 'main',
+              command: 'menu_item :main :Capturas de Pantalla :nickel_setting :toggle :screenshots',
+              tags: ['display', 'settings']
+            },
+        
+            // Library Management
+            {
+              id: 'rescan_books',
+              name: 'Importar Libros',
+              description: 'Reescanear la biblioteca de libros',
+              icon: '📚',
+              context: 'library',
+              command: 'menu_item :library :Importar Libros :nickel_misc :rescan_books_full',
+              tags: ['library', 'books']
+            },
+            {
+              id: 'rescan_books_quick',
+              name: 'Importar Libros (Rápido)',
+              description: 'Reescanear biblioteca sin análisis completo',
+              icon: '📚',
+              context: 'library',
+              command: 'menu_item :library :Importar Libros (Rápido) :nickel_misc :rescan_books',
+              tags: ['library', 'books']
+            },
+        
+            // Network
+            {
+              id: 'wifi_toggle',
+              name: 'WiFi',
+              description: 'Activa/desactiva la conexión WiFi',
+              icon: '📶',
+              context: 'main',
+              command: 'menu_item :main :WiFi :nickel_setting :toggle :wifi',
+              tags: ['network', 'settings']
+            },
+            {
+              id: 'ip_address',
+              name: 'Dirección IP',
+              description: 'Muestra la dirección IP actual',
+              icon: '🌐',
+              context: 'main',
+              command: 'menu_item :main :Dirección IP :cmd_output :500:/sbin/ifconfig | /usr/bin/awk \'/inet addr/{print substr($2,6)}\'',
+              tags: ['network', 'info']
+            },
+        
+            // System Information
+            {
+              id: 'kernel_version',
+              name: 'Versión del Kernel',
+              description: 'Muestra la versión del kernel',
+              icon: '⚙️',
+              context: 'main',
+              command: 'menu_item :main :Versión del Kernel :cmd_output :500:uname -a',
+              tags: ['system', 'info']
+            },
+            {
+              id: 'syslog',
+              name: 'Registro del Sistema',
+              description: 'Guarda el registro del sistema en un archivo',
+              icon: '📋',
+              context: 'main',
+              command: 'menu_item :main :Registro del Sistema :cmd_spawn :logread > /mnt/onboard/.adds/syslog.log',
+              tags: ['system', 'debug']
+            },
+        
+            // Browser
+            {
+              id: 'browser_exit',
+              name: 'Salir del Navegador',
+              description: 'Cierra el navegador y vuelve al menú principal',
+              icon: '🚪',
+              context: 'browser',
+              command: 'menu_item :browser :Salir :nickel_misc :home',
+              tags: ['browser', 'navigation']
+            },
+            {
+              id: 'browser_invert',
+              name: 'Invertir Pantalla (Navegador)',
+              description: 'Invierte los colores en el navegador',
+              icon: '🔄',
+              context: 'browser',
+              command: 'menu_item :browser :Invertir Pantalla :nickel_setting :toggle :invert',
+              tags: ['browser', 'display']
+            },
+        
+            // Additional Features from GitHub examples
+            {
+              id: 'device_owner',
+              name: 'Información del Propietario',
+              description: 'Muestra información del propietario del dispositivo (editable)',
+              icon: '☎',
+              context: 'main',
+              command: 'menu_item :main :☎ Propietario :cmd_output :500:/mnt/onboard/.adds/owner.sh',
+              tags: ['system', 'info', 'editable'],
+              editable: true,
+              editInstructions: 'Edita el archivo /mnt/onboard/.adds/owner.sh con tu información personal'
+            },
+            {
+              id: 'move_screenshots',
+              name: 'Organizar Capturas',
+              description: 'Mueve y organiza las capturas de pantalla',
+              icon: '☁',
+              context: 'main',
+              command: 'menu_item :main :☁ Organizar Capturas :cmd_spawn :quiet:test -e /mnt/onboard/screen_*.png\n    chain_failure :skip :4\n    chain_success :cmd_spawn :quiet:mkdir -p "/mnt/onboard/.screenshots"\n    chain_success :cmd_spawn :quiet:for file in /mnt/onboard/screen_*.png; do screen="$(date \'+%Y%m%d_%H%M%S\')_$(basename $file)"; mv "$file" "/mnt/onboard/.screenshots/${screen}"; done\n    chain_success :dbg_toast :Capturas organizadas en /mnt/onboard/.screenshots\n    chain_always :skip :-1\n    chain_failure :dbg_toast :Error organizando capturas.',
+              tags: ['system', 'files']
+            },
+            {
+              id: 'backup_database',
+              name: 'Respaldar Base de Datos',
+              description: 'Crea una copia de seguridad de la base de datos',
+              icon: '→',
+              context: 'library',
+              command: 'menu_item :library :→ Respaldar BD :cmd_spawn :quiet:test -e /mnt/onboard/.kobo/KoboReader.sqlite\n    chain_failure :skip :4\n    chain_success :cmd_spawn :quiet:mkdir -p "/mnt/onboard/.backup"\n    chain_success :cmd_spawn :quiet:cp -p "/mnt/onboard/.kobo/KoboReader.sqlite" "/mnt/onboard/.backup/$(date \'+%Y%m%d_%H%M%S\')_KoboReader.sqlite"\n    chain_success :dbg_toast :Base de datos respaldada en /mnt/onboard/.backup\n    chain_always :skip :-1\n    chain_failure :dbg_toast :Error respaldando base de datos.',
+              tags: ['system', 'backup']
+            },
+            {
+              id: 'send_djazz',
+              name: 'Send Djazz',
+              description: 'Abre Send Djazz para compartir archivos',
+              icon: '☁',
+              context: 'main',
+              command: 'menu_item :main :☁ Send Djazz :nickel_browser :modal:https://send.djazz.se',
+              tags: ['browser', 'sharing']
+            },
+            {
+              id: 'archive_of_our_own',
+              name: 'Archive of Our Own',
+              description: 'Abre Archive of Our Own (AO3) - plataforma de fanfiction',
+              icon: '♣',
+              context: 'main',
+              command: 'menu_item :main :♣ AO3 :nickel_browser :modal:https://archiveofourown.gay/',
+              tags: ['browser', 'reading', 'fanfiction']
+            },
+            {
+              id: 'solitaire',
+              name: 'Solitario',
+              description: 'Juego de solitario integrado',
+              icon: '♥',
+              context: 'main',
+              command: 'menu_item :main :♥ Solitario :nickel_extras :solitaire',
+              tags: ['games', 'entertainment']
+            },
+            {
+              id: 'sudoku',
+              name: 'Sudoku',
+              description: 'Juego de Sudoku integrado',
+              icon: '♠',
+              context: 'main',
+              command: 'menu_item :main :♠ Sudoku :nickel_extras :sudoku',
+              tags: ['games', 'entertainment']
+            },
+            {
+              id: 'word_scramble',
+              name: 'Word Scramble',
+              description: 'Juego de palabras mezcladas',
+              icon: '🔤',
+              context: 'main',
+              command: 'menu_item :main :Word Scramble :nickel_extras :word_scramble',
+              tags: ['games', 'entertainment']
+            },
+            {
+              id: 'unblock_it',
+              name: 'Unblock It',
+              description: 'Juego de desbloqueo de piezas',
+              icon: '🧩',
+              context: 'main',
+              command: 'menu_item :main :Unblock It :nickel_extras :unblock_it',
+              tags: ['games', 'entertainment']
+            },
+        
+            // Advanced Features
+            {
+              id: 'ftp_server',
+              name: 'Servidor FTP',
+              description: 'Inicia un servidor FTP en el puerto 1021',
+              icon: '📁',
+              context: 'main',
+              command: 'menu_item :main :FTP :cmd_spawn :quiet:/usr/bin/pkill -f "^/usr/bin/tcpsvd -E 0.0.0.0 1021" || true && exec /usr/bin/tcpsvd -E 0.0.0.0 1021 /usr/sbin/ftpd -w -t 30 /mnt/onboard\n    chain_success :dbg_toast :Servidor FTP iniciado en el puerto 1021.',
+              tags: ['network', 'advanced']
+            },
+            {
+              id: 'telnet_server',
+              name: 'Servidor Telnet',
+              description: 'Inicia/para un servidor Telnet en el puerto 2023',
+              icon: '💻',
+              context: 'main',
+              command: 'menu_item :main :Telnet (toggle) :cmd_output :500:quiet :/usr/bin/pkill -f "^/usr/bin/tcpsvd -E 0.0.0.0 2023"\n    chain_success:skip:5\n    chain_failure :cmd_spawn :quiet :/bin/mount -t devpts | /bin/grep -q /dev/pts || { /bin/mkdir -p /dev/pts && /bin/mount -t devpts devpts /dev/pts; }\n    chain_success :cmd_spawn :quiet :exec /usr/bin/tcpsvd -E 0.0.0.0 2023 /usr/sbin/telnetd -i -l /bin/login\n    chain_success :dbg_toast :Servidor Telnet iniciado en el puerto 2023\n    chain_failure :dbg_toast :Error al iniciar el servidor Telnet en el puerto 2023\n    chain_always:skip:-1\n    chain_success :dbg_toast :Servidor Telnet detenido en el puerto 2023',
+              tags: ['network', 'advanced']
+            },
+        
+            // Screensaver Control
+            {
+              id: 'screensaver_toggle',
+              name: 'Activar/Desactivar Salvapantallas',
+              description: 'Alterna entre modo wallpaper y portada',
+              icon: '🖼️',
+              context: 'main',
+              command: 'menu_item :main :Activar/Desactivar salvapantallas :cmd_output :500 :quiet :test -e /mnt/onboard/.kobo/screensaver_old\n    chain_failure :skip :3\n    chain_success :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver_old /mnt/onboard/.kobo/screensaver\n    chain_success :dbg_toast :Salvapantallas activado (Modo Wallpaper)\n    chain_always :skip :-1\n    chain_failure :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver /mnt/onboard/.kobo/screensaver_old\n    chain_success :dbg_toast :Salvapantallas desactivado (Modo de portada)',
+              tags: ['display', 'advanced']
+            },
+        
+            // Browser Actions
+            {
+              id: 'google_search',
+              name: 'Google',
+              description: 'Abre Google en el navegador',
+              icon: '🔍',
+              context: 'main',
+              command: 'menu_item :main :Google :nickel_browser :modal:https://google.com/',
+              tags: ['browser', 'web']
+            },
+            {
+              id: 'wikipedia',
+              name: 'Wikipedia',
+              description: 'Abre Wikipedia en el navegador',
+              icon: '📚',
+              context: 'main',
+              command: 'menu_item :main :Wikipedia :nickel_browser :modal:https://www.wikipedia.org/',
+              tags: ['browser', 'web']
+            },
+            {
+              id: 'google_translate',
+              name: 'Google Translate',
+              description: 'Traduce texto seleccionado',
+              icon: '🌐',
+              context: 'selection',
+              command: 'menu_item :selection :Google Translate :nickel_browser :modal:https://translate.google.com/m?sl=auto&tl=fr&q={1||%}',
+              tags: ['browser', 'translation']
+            },
+        
+            // USB Control
+            {
+              id: 'usb_toggle',
+              name: 'USB Encendido/Apagado',
+              description: 'Activa/desactiva la conexión USB',
+              icon: '☀',
+              context: 'main',
+              command: 'menu_item :main :USB Encendido/Apagado :nickel_misc :force_usb_connection',
+              tags: ['usb', 'connection']
+            },
+        
+            // Reading Statistics
+            {
+              id: 'reading_stats',
+              name: 'Estadísticas de Lectura',
+              description: 'Muestra estadísticas de lectura',
+              icon: '📊',
+              context: 'main',
+              command: 'menu_item :main :Estadísticas :nickel_open :reading_life :reading_life',
+              tags: ['stats', 'reading']
+            },
+            {
+              id: 'reading_stats_reader',
+              name: 'Estadísticas de Lectura',
+              description: 'Muestra estadísticas de lectura desde el lector',
+              icon: '📊',
+              context: 'reader',
+              command: 'menu_item :reader :Reading Stats :nickel_open :reading_life :stats',
+              tags: ['stats', 'reading']
+            },
+        
+            // Memory and System Info
+            {
+              id: 'free_memory',
+              name: 'Memoria Libre',
+              description: 'Muestra la memoria libre del sistema',
+              icon: '→',
+              context: 'reader',
+              command: 'menu_item :reader :Free Memory :cmd_output :500 :free -m',
+              tags: ['system', 'memory']
+            },
+        
+            // WiFi Control
+            {
+              id: 'wifi_toggle_force',
+              name: 'Forzar WiFi',
+              description: 'Activa/desactiva WiFi forzadamente',
+              icon: '📶',
+              context: 'main',
+              command: 'menu_item :main :Forzar WiFi :nickel_setting :toggle :force_wifi\n    chain_success :nickel_wifi :toggle',
+              tags: ['network', 'wifi']
+            },
+            {
+              id: 'wifi_toggle_reader',
+              name: 'Forzar WiFi',
+              description: 'Activa/desactiva WiFi desde el lector',
+              icon: '📶',
+              context: 'reader',
+              command: 'menu_item :reader :Forzar WiFi :nickel_setting :toggle :force_wifi\n    chain_success :nickel_wifi :toggle',
+              tags: ['network', 'wifi']
+            },
+        
+            // Extras
+            {
+              id: 'sketch_pad',
+              name: 'Bloc de Dibujo',
+              description: 'Abre el bloc de dibujo integrado',
+              icon: '✏️',
+              context: 'main',
+              command: 'menu_item :main :Bloc de Dibujo :nickel_extras :sketch_pad',
+              tags: ['extras', 'tools']
+            }
+          ],
+          unicode: [
+            // Unicode Icons Collection - Same functions with Unicode icons
+            {
+              id: 'koreader_unicode',
+              name: 'KOReader',
+              description: 'Lector alternativo KOReader (requiere instalación externa)',
+              icon: '📖',
+              context: 'main',
+              command: 'menu_item :main :📖 KOReader :cmd_spawn :quiet :exec /mnt/onboard/.adds/koreader/koreader.sh',
+              tags: ['reader', 'unicode', 'custom']
+            },
+            {
+              id: 'plato_unicode',
+              name: 'Plato',
+              description: 'Lector alternativo Plato (requiere instalación externa)',
+              icon: '📚',
+              context: 'main',
+              command: 'menu_item :main :📚 Plato :cmd_spawn :quiet :exec /mnt/onboard/.adds/plato/plato.sh',
+              tags: ['reader', 'unicode', 'custom']
+            },
+            {
+              id: 'solitaire_unicode',
+              name: 'Solitario',
+              description: 'Juego de solitario integrado',
+              icon: '🃏',
+              context: 'main',
+              command: 'menu_item :main :🃏 Solitario :nickel_extras :solitaire',
+              tags: ['games', 'unicode', 'entertainment']
+            },
+            {
+              id: 'sudoku_unicode',
+              name: 'Sudoku',
+              description: 'Juego de Sudoku integrado',
+              icon: '🔢',
+              context: 'main',
+              command: 'menu_item :main :🔢 Sudoku :nickel_extras :sudoku',
+              tags: ['games', 'unicode', 'entertainment']
+            },
+            {
+              id: 'sketch_pad_unicode',
+              name: 'Bloc de Dibujo',
+              description: 'Abre el bloc de dibujo integrado',
+              icon: '✏️',
+              context: 'main',
+              command: 'menu_item :main :✏️ Bloc de Dibujo :nickel_extras :sketch_pad',
+              tags: ['extras', 'unicode', 'tools']
+            },
+            {
+              id: 'invert_unicode',
+              name: 'Invertir Pantalla',
+              description: 'Invierte los colores de la pantalla',
+              icon: '🔄',
+              context: 'main',
+              command: 'menu_item :main :🔄 Invertir Pantalla :nickel_setting :toggle :invert\n    chain_success :power :reboot',
+              tags: ['display', 'unicode', 'system']
+            },
+            {
+              id: 'screenshots_unicode',
+              name: 'Capturas de Pantalla',
+              description: 'Activa/desactiva las capturas de pantalla',
+              icon: '☁',
+              context: 'main',
+              command: 'menu_item :main :📸 Capturas :nickel_setting :toggle :screenshots',
+              tags: ['display', 'unicode', 'system']
+            },
+            {
+              id: 'rescan_books_unicode',
+              name: 'Reescanear Biblioteca',
+              description: 'Fuerza el reescaneo completo de la biblioteca',
+              icon: '🔄',
+              context: 'main',
+              command: 'menu_item :main :🔄 Reescanear :nickel_misc :rescan_books_full',
+              tags: ['library', 'unicode', 'books']
+            },
+            {
+              id: 'wifi_toggle_unicode',
+              name: 'Forzar WiFi',
+              description: 'Activa/desactiva WiFi forzadamente',
+              icon: '📶',
+              context: 'main',
+              command: 'menu_item :main :☎ WiFi :nickel_wifi :toggle',
+              tags: ['network', 'unicode', 'wifi']
+            },
+            {
+              id: 'screensaver_toggle_unicode',
+              name: 'Salvapantallas',
+              description: 'Activa/desactiva el salvapantallas',
+              icon: '🖼️',
+              context: 'main',
+              command: 'menu_item :main :🖼️ Salvapantallas :cmd_output :500 :quiet :test -e /mnt/onboard/.kobo/screensaver\n    chain_failure :skip :3\n    chain_success :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver_old /mnt/onboard/.kobo/screensaver\n    chain_success :dbg_toast :Wallpaper Mode\n    chain_always :skip :-1\n    chain_failure :cmd_spawn :quiet :mv /mnt/onboard/.kobo/screensaver /mnt/onboard/.kobo/screensaver_old\n    chain_success :dbg_toast :Cover Art Mode',
+              tags: ['display', 'unicode', 'advanced']
+            },
+            {
+              id: 'usb_toggle_unicode',
+              name: 'USB',
+              description: 'Activa/desactiva la conexión USB',
+              icon: '☀',
+              context: 'main',
+              command: 'menu_item :main :🔌 USB :nickel_misc :force_usb_connection',
+              tags: ['usb', 'unicode', 'connection']
+            },
+            {
+              id: 'sleep_unicode',
+              name: 'Suspender',
+              description: 'Pone el dispositivo en modo suspensión',
+              icon: '😴',
+              context: 'main',
+              command: 'menu_item :main :☂ Suspender :power :sleep',
+              tags: ['power', 'unicode', 'system']
+            },
+            {
+              id: 'reboot_unicode',
+              name: 'Reiniciar',
+              description: 'Reinicia el dispositivo',
+              icon: '🔄',
+              context: 'main',
+              command: 'menu_item :main :★ Reiniciar :power :reboot',
+              tags: ['power', 'unicode', 'system']
+            },
+            {
+              id: 'shutdown_unicode',
+              name: 'Apagar',
+              description: 'Apaga el dispositivo',
+              icon: '⏻',
+              context: 'main',
+              command: 'menu_item :main :⏻ Apagar :power :shutdown',
+              tags: ['power', 'unicode', 'system']
+            },
+            {
+              id: 'dark_mode_unicode',
+              name: 'Modo Oscuro',
+              description: 'Activa/desactiva el modo oscuro',
+              icon: '🌙',
+              context: 'reader',
+              command: 'menu_item :reader :🌙 Modo Oscuro :nickel_setting :toggle :dark_mode',
+              tags: ['display', 'unicode', 'reader']
+            }
+          ],
+          custom: []
+        };
+
+        this.actionsData = actions;
+        this.renderActions('popular');
+        this.updateStepVisibility(); // Initialize wizard visibility
+      }
+
+      renderActions(category) {
+        const container = document.querySelector('#actionsGrid');
+        if (!container) return;
+
+        let actions = this.actionsData[category] || [];
+
+        // Filter actions based on selected contexts
+        if (this.selectedContexts.size > 0) {
+          actions = actions.filter(action => {
+            if (action.context) {
+              return this.selectedContexts.has(action.context);
+            }
+            return true;
+          });
+        }
+
+        if (actions.length === 0) {
+          this.renderEmptyActions(container, 'No hay acciones disponibles para los contextos seleccionados.');
+          return;
+        }
+
+        container.innerHTML = actions.map(action => this.actionCardTemplate(action)).join('');
+        this.applyActionCardListeners(container);
+      }
+
+      actionCardTemplate(action) {
+        return `
+          <div class="action-card" data-action="${action.id}">
+            <div class="action-header">
+              <div class="action-icon">${action.icon}</div>
+              <div class="action-title">${action.name}</div>
+            </div>
+            <div class="action-description">${action.description}</div>
+            <div class="action-tags">
+              ${action.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      applyActionCardListeners(container) {
+        container.querySelectorAll('.action-card').forEach(card => {
+          card.addEventListener('click', () => this.toggleAction(card.dataset.action));
+
+          if (this.selectedActions.has(card.dataset.action)) {
+            card.classList.add('selected');
+          }
+        });
+      }
+
+      renderEmptyActions(container, message) {
+        container.innerHTML = `
+          <div class="empty-state actions-empty">
+            <div class="empty-icon">🔍</div>
+            <p>${message}</p>
+            <small>Prueba con otro término o revisa los contextos seleccionados.</small>
+          </div>
+        `;
+      }
+
+      getAllActions() {
+        const categories = ['popular', 'all', 'unicode', 'custom'];
+        const unique = new Map();
+
+        categories.forEach(category => {
+          (this.actionsData?.[category] || []).forEach(action => {
+            if (!unique.has(action.id)) {
+              unique.set(action.id, action);
+            }
+          });
+        });
+
+        return Array.from(unique.values());
+      }
+
+      getContextLabel(contextId) {
+        if (!contextId) {
+          return 'Todos los contextos';
+        }
+
+        return this.contextDefinitions[contextId]?.name || contextId;
+      }
+
+      switchTab(tabName) {
+        // Update tab appearance
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
+    
+        // Render appropriate actions
+        this.renderActions(tabName);
+      }
+
+      toggleContext(contextId) {
+        if (contextId === ALL_CONTEXT_ID) {
+          this.toggleAllContexts();
+          return;
+        }
+
+        const contextWasSelected = this.selectedContexts.has(contextId);
+
+        if (contextWasSelected) {
+          this.selectedContexts.delete(contextId);
+          this.removeActionsByContext(contextId);
+        } else {
+          this.selectedContexts.add(contextId);
+        }
+
+        this.updateContextsDisplay();
+        this.refreshAfterContextSelectionChange();
+      }
+
+      toggleAllContexts() {
+        if (this.availableContexts.length === 0) {
+          return;
+        }
+
+        const currentlyAllSelected = this.areAllContextsSelected();
+        let hasChanges = false;
+
+        if (currentlyAllSelected) {
+          this.availableContexts.forEach(contextId => {
+            if (this.selectedContexts.delete(contextId)) {
+              this.removeActionsByContext(contextId);
+              hasChanges = true;
+            }
+          });
+        } else {
+          this.availableContexts.forEach(contextId => {
+            if (!this.selectedContexts.has(contextId)) {
+              this.selectedContexts.add(contextId);
+              hasChanges = true;
+            }
+          });
+        }
+
+        if (!hasChanges) {
+          return;
+        }
+
+        this.updateContextsDisplay();
+        this.refreshAfterContextSelectionChange();
+      }
+
+      areAllContextsSelected() {
+        return this.availableContexts.length > 0 && this.availableContexts.every(contextId => this.selectedContexts.has(contextId));
+      }
+
+      refreshAfterContextSelectionChange() {
+        const activeTab = document.querySelector('.tab.active');
+        if (activeTab) {
+          this.renderActions(activeTab.dataset.tab);
+        }
+
+        this.updatePreview();
+      }
+
+      removeActionsByContext(contextId) {
+        let hasChanges = false;
+
+        this.selectedActions.forEach((action, actionId) => {
+          if (action.context === contextId) {
+            this.selectedActions.delete(actionId);
+            this.customUnicode.delete(actionId);
+            if (this.selectedActionForUnicode === actionId) {
+              this.selectedActionForUnicode = null;
+            }
+            hasChanges = true;
+          }
+        });
+
+        if (hasChanges) {
+          this.updateSelectedActions();
+          this.populateUnicodeCustomization();
+        }
+      }
+
+      toggleAction(actionId) {
+        const card = document.querySelector(`[data-action="${actionId}"]`);
+        if (!card) return;
+
+        // Find action data
+        let actionData = null;
+        for (const category in this.actionsData) {
+          actionData = this.actionsData[category].find(action => action.id === actionId);
+          if (actionData) break;
+        }
+
+        if (!actionData) return;
+
+        if (this.selectedActions.has(actionId)) {
+          this.selectedActions.delete(actionId);
+          card.classList.remove('selected');
+        } else {
+          this.selectedActions.set(actionId, actionData);
+          card.classList.add('selected');
+        }
+
+        this.updateSelectedActions();
+        this.updatePreview();
+      }
+
+      updateSelectedActions() {
+        const container = document.getElementById('selectedList');
+        const countElement = document.getElementById('selectedCount');
+    
+        if (!container || !countElement) return;
+
+        const count = this.selectedActions.size;
+        countElement.textContent = count;
+
+        if (count === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">📋</div>
+              <p>No hay acciones seleccionadas</p>
+              <small>Selecciona acciones del catálogo para comenzar</small>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = Array.from(this.selectedActions.values()).map(action => `
+            <div class="selected-item">
+              <div class="selected-item-header">
+                <span class="selected-item-icon">${this.customUnicode.get(action.id) || action.icon}</span>
+                <span class="selected-item-name">${action.name}</span>
+                <button class="btn-remove" data-action-id="${action.id}" aria-label="Quitar ${action.name}">×</button>
+              </div>
+              <div class="selected-item-context">Contexto: ${this.getContextLabel(action.context)}</div>
+            </div>
+        `).join('');
+    
+        // Add event listeners for remove buttons
+        container.querySelectorAll('.btn-remove').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.removeAction(e.target.dataset.actionId);
+          });
+        });
+
+        if (this.currentStep === 3) {
+          this.populateUnicodeCustomization();
+        }
+      }
+
+      removeAction(actionId) {
+        this.selectedActions.delete(actionId);
+        const card = document.querySelector(`[data-action="${actionId}"]`);
+        if (card) card.classList.remove('selected');
+    
+        this.updateSelectedActions();
+        this.updatePreview();
+      }
+
+      validateCurrentStep() {
+        switch (this.currentStep) {
+          case 1:
+            // Must have at least one context selected
+            if (this.selectedContexts.size === 0) {
+              this.showToast('Selecciona al menos un contexto para continuar.', 'warning');
+              return false;
+            }
+            return true;
+        
+          case 2:
+            // Must have at least one action selected
+            if (this.selectedActions.size === 0) {
+              this.showToast('Selecciona al menos una acción para continuar.', 'warning');
+              return false;
+            }
+            return true;
+        
+          case 3:
+            // Preview step - always valid
+            return true;
+        
+          case 4:
+            // Export step - always valid
+            return true;
+        
+          default:
+            return true;
+        }
+      }
+
+      nextStep() {
+        // Validate current step before proceeding
+        if (!this.validateCurrentStep()) {
+          return;
+        }
+
+        if (this.currentStep < 4) {
+          this.currentStep++;
+          this.updateProgress();
+          this.updateStepVisibility();
+      
+          // Special handling for step 3 (Preview)
+          if (this.currentStep === 3) {
+            this.updatePreview();
+            this.populateUnicodeCustomization();
+          }
+        }
+      }
+
+      prevStep() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.updateProgress();
+          this.updateStepVisibility();
+        }
+      }
+
+      updateProgress() {
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+    
+        if (progressFill) {
+          progressFill.style.width = `${(this.currentStep / 4) * 100}%`;
+        }
+    
+        if (progressText) {
+          progressText.textContent = `Paso ${this.currentStep} de 4`;
+        }
+
+        // Update step indicators
+        document.querySelectorAll('.step').forEach((step, index) => {
+          const stepNumber = index + 1;
+          if (stepNumber === this.currentStep) {
+            step.classList.add('active');
+          } else {
+            step.classList.remove('active');
+          }
+        });
+
+        // Update navigation buttons
+        const prevBtn = document.getElementById('btnPrevStep');
+        const nextBtn = document.getElementById('btnNextStep');
+    
+        if (prevBtn) {
+          prevBtn.disabled = this.currentStep === 1;
+        }
+    
+        if (nextBtn) {
+          nextBtn.disabled = this.currentStep === 4;
+        }
+      }
+
+      updateStepVisibility() {
+        // Hide all step pages first
+        document.querySelectorAll('.step-page').forEach(page => {
+          page.style.display = 'none';
+        });
+    
+        // Show only the current step page
+        const currentPage = document.querySelector(`.step-page[data-step="${this.currentStep}"]`);
+        if (currentPage) {
+          currentPage.style.display = 'block';
+        }
+    
+        // Update navigation button states
+        this.updateNavigationButtons();
+      }
+
+      updateNavigationButtons() {
+        const prevButtons = document.querySelectorAll('.btn-prev-step');
+        const nextButtons = document.querySelectorAll('.btn-next-step');
+    
+        // Update previous buttons
+        prevButtons.forEach(btn => {
+          btn.disabled = this.currentStep === 1;
+        });
+    
+        // Update next buttons
+        nextButtons.forEach(btn => {
+          if (this.currentStep === 4) {
+            btn.disabled = true;
+            btn.innerHTML = `
+              Finalizar
+              <span class="btn-icon">✓</span>
+            `;
+          } else {
+            btn.disabled = false;
+            btn.innerHTML = `
+              Siguiente
+              <span class="btn-icon">→</span>
+            `;
+          }
+        });
+      }
+
+      updatePreview() {
+        this.generateConfig();
+        this.updateConfigPreview();
+        this.updateMenuPreview();
+      }
+
+      generateConfig() {
+        this.config = {
+          contexts: {},
+          actions: [],
+          experimental: {}
+        };
+
+        this.config.contexts.selected = Array.from(this.selectedContexts);
+
+        // Generate menu items for each selected context and action combination
+        Array.from(this.selectedActions.values()).forEach(action => {
+          if (!action.context || this.selectedContexts.has(action.context)) {
+            const menuItem = this.createMenuItem(action);
+            this.config.actions.push(menuItem);
+          }
+        });
+
+        // Add experimental features if needed
+        if (this.selectedContexts.has('main')) {
+          const menuName = document.querySelector('#menuName')?.value.trim() || 'Mi Menú';
+          this.config.experimental = {
+            'menu_main_15505_enabled': '1',
+            'menu_main_15505_label': menuName
+          };
+      
+          // Only add icon if custom icon is uploaded
+          if (this.customIcon) {
+            this.config.experimental['menu_main_15505_icon'] = this.customIcon.path;
+          }
+        }
+      }
+
+      createMenuItem(action) {
+        // Use custom Unicode character if available, otherwise use original icon
+        const customIcon = this.customUnicode.get(action.id);
+    
+        if (customIcon) {
+          // Replace the icon in the command with the custom Unicode character
+          const newCommand = action.command.replace(action.icon, customIcon);
+          return newCommand;
+        }
+        // Use the original command as-is
+        return action.command;
+      }
+
+      updateConfigPreview() {
+        const preview = document.querySelector('#configPreview');
+        if (!preview) return;
+
+        let configText = '# Configuración generada por NickelMenu Builder\n\n';
+    
+        // Add menu items
+        if (this.config.actions.length > 0) {
+          configText += '# =========================\n';
+          configText += '# =      MENU ITEMS       =\n';
+          configText += '# =========================\n';
+          this.config.actions.forEach(action => {
+            configText += action + '\n';
+          });
+          configText += '\n';
+        }
+
+        // Add experimental features
+        if (Object.keys(this.config.experimental).length > 0) {
+          configText += '# =========================\n';
+          configText += '# =    EXPERIMENTAL       =\n';
+          configText += '# =========================\n';
+          Object.entries(this.config.experimental).forEach(([key, value]) => {
+            configText += `experimental:${key}:${value}\n`;
+          });
+        }
+
+        preview.textContent = configText;
+      }
+
+      updateMenuPreview() {
+        const preview = document.getElementById('menuPreview');
+        if (!preview) return;
+
+        const menuName = document.getElementById('menuName')?.value.trim() || 'Mi Menú';
+        const menuItems = Array.from(this.selectedActions.values())
+          .filter(action => this.selectedContexts.has(action.context))
+          .slice(0, 5); // Show max 5 items in preview
+
+        if (menuItems.length === 0) {
+          preview.innerHTML = `
+            <div class="menu-item">
+              <span class="menu-icon">📚</span>
+              <span class="menu-text">${menuName}</span>
+            </div>
+          `;
+          return;
+        }
+
+        preview.innerHTML = `
+          <div class="menu-item">
+            <span class="menu-icon">📚</span>
+            <span class="menu-text">${menuName}</span>
+          </div>
+          ${menuItems.map(action => `
+            <div class="menu-item">
+              <span class="menu-icon">${this.customUnicode.get(action.id) || action.icon}</span>
+              <span class="menu-text">${action.name}</span>
+            </div>
+          `).join('')}
+        `;
+      }
+
+      filterActions(query) {
+        const normalizedQuery = query ? query.trim().toLowerCase() : '';
+
+        if (!normalizedQuery) {
+          const activeTab = document.querySelector('.tab.active');
+          if (activeTab) {
+            this.renderActions(activeTab.dataset.tab);
+          }
+          return;
+        }
+
+        const allActions = this.getAllActions();
+
+        const filtered = allActions.filter(action => {
+          const haystack = [action.name, action.description, ...action.tags].join(' ').toLowerCase();
+          return haystack.includes(normalizedQuery);
+        });
+
+        const container = document.querySelector('#actionsGrid');
+        if (!container) return;
+
+        if (filtered.length === 0) {
+          this.renderEmptyActions(container, 'No encontramos acciones que coincidan con tu búsqueda.');
+          return;
+        }
+
+        container.innerHTML = filtered.map(action => this.actionCardTemplate(action)).join('');
+        this.applyActionCardListeners(container);
+      }
+
+      toggleRawView() {
+        const preview = document.getElementById('configPreview');
+        const btn = document.getElementById('btnToggleRaw');
+
+        if (!preview || !btn) return;
+
+        const isRaw = preview.classList.toggle('raw-view');
+        btn.textContent = isRaw ? 'Ver formateado' : 'Ver código';
+
+        if (!isRaw) {
+          this.updateConfigPreview();
+        }
+      }
+
+      importConfig() {
+        document.getElementById('fileInput').click();
+      }
+
+      handleFileImport(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.parseImportedConfig(e.target.result);
+        };
+        reader.readAsText(file);
+      }
+
+      parseImportedConfig(configText) {
+        try {
+          // Parse the imported config and populate the interface
+          console.log('Imported config:', configText);
+      
+          // Reset current selection
+          this.selectedContexts.clear();
+          this.selectedActions.clear();
+      
+          // Parse menu items and populate selections
+          const lines = configText.split('\n');
+          const parsedActions = [];
+      
+          lines.forEach(line => {
+            line = line.trim();
+            if (line.startsWith('menu_item')) {
+              // Extract context and action info from the line
+              const parts = line.split(':');
+              if (parts.length >= 4) {
+                const context = parts[1];
+                const name = parts[2];
+            
+                // Find matching action in our data
+                for (const category in this.actionsData) {
+                  const action = this.actionsData[category].find(a => 
+                    a.name === name || a.command === line
+                  );
+                  if (action) {
+                    parsedActions.push({ action, context });
+                    break;
+                  }
+                }
+              }
+            }
+          });
+      
+          // Apply parsed configuration
+          parsedActions.forEach(({ action, context }) => {
+            this.selectedContexts.add(context);
+            this.selectedActions.set(action.id, action);
+          });
+      
+          this.updatePreview();
+          this.updateSelectedActions();
+          this.updateContextsDisplay();
+      
+          // Show success message
+          const message = document.getElementById('validationMessage');
+          if (message) {
+            message.className = 'validation-message success';
+            message.textContent = `✅ Configuración importada exitosamente (${parsedActions.length} acciones)`;
+          }
+      
+        } catch (error) {
+          console.error('Error parsing imported config:', error);
+      
+          // Show error message
+          const message = document.getElementById('validationMessage');
+          if (message) {
+            message.className = 'validation-message error';
+            message.textContent = '❌ Error al importar la configuración. Verifica el formato del archivo.';
+          }
+        }
+      }
+
+      toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+
+        try {
+          localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+        } catch (error) {
+          console.warn('No se pudo guardar el tema seleccionado', error);
+        }
+
+        this.updateThemeButton(newTheme);
+      }
+
+      applySavedTheme() {
+        let savedTheme = 'light';
+
+        try {
+          const stored = localStorage.getItem(THEME_STORAGE_KEY);
+          if (stored === 'dark' || stored === 'light') {
+            savedTheme = stored;
+          }
+        } catch (error) {
+          console.warn('No se pudo recuperar el tema guardado', error);
+        }
+
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        this.updateThemeButton(savedTheme);
+      }
+
+      updateThemeButton(theme) {
+        const btn = document.getElementById('btnTheme');
+        if (!btn) return;
+
+        const icon = btn.querySelector('.btn-icon');
+        const label = btn.querySelector('.btn-label');
+        const isDark = theme === 'dark';
+
+        if (icon) {
+          icon.textContent = isDark ? '☀️' : '🌙';
+        }
+
+        if (label) {
+          label.textContent = isDark ? 'Tema claro' : 'Tema oscuro';
+        }
+
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      }
+
+      showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.removeAttribute('hidden');
+        }
+      }
+
+      closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.setAttribute('hidden', '');
+        }
+      }
+
+      showWelcomeModal() {
+        // Always show welcome modal when called manually
+        this.showModal('welcomeModal');
+      }
+
+      markWelcomeAsSeen() {
+        try {
+          localStorage.setItem(WELCOME_STORAGE_KEY, 'true');
+        } catch (error) {
+          console.warn('No se pudo registrar la visita al asistente', error);
+        }
+      }
+
+      // Show Welcome Modal on First Visit
+      showWelcomeOnFirstVisit() {
+        try {
+          const hasVisited = localStorage.getItem(WELCOME_STORAGE_KEY);
+          if (!hasVisited) {
+            this.showModal('welcomeModal');
+          }
+        } catch (error) {
+          console.warn('No se pudo comprobar la visita al asistente', error);
+          this.showModal('welcomeModal');
+        }
+      }
+
+      resetConfiguration() {
+        // Clear selections and personalization
+        this.selectedContexts.clear();
+        this.selectedActions.clear();
+        this.customUnicode.clear();
+        this.customIcon = null;
+        this.selectedActionForUnicode = null;
+
+        // Reset configuration object
+        this.config = {
+          contexts: {},
+          actions: [],
+          experimental: {}
+        };
+
+        // Reset inputs
+        const menuNameInput = document.getElementById('menuName');
+        if (menuNameInput) menuNameInput.value = '';
+
+        const searchInput = document.getElementById('search');
+        if (searchInput) searchInput.value = '';
+
+        const iconUpload = document.getElementById('iconUpload');
+        if (iconUpload) iconUpload.value = '';
+
+        const iconPreview = document.getElementById('iconPreview');
+        if (iconPreview) iconPreview.hidden = true;
+
+        // Reset owner info inputs and storage
+        ['ownerName', 'ownerPhone', 'ownerEmail', 'ownerAddress'].forEach(id => {
+          const input = document.getElementById(id);
+          if (input) input.value = '';
+        });
+        this.ownerInfo = { name: '', phone: '', email: '', address: '' };
+        localStorage.removeItem(OWNER_INFO_KEY);
+        const ownerPreview = document.getElementById('ownerPreview');
+        if (ownerPreview) ownerPreview.hidden = true;
+        const ownerPreviewContent = document.getElementById('ownerPreviewContent');
+        if (ownerPreviewContent) ownerPreviewContent.textContent = '';
+
+        const validationMessage = document.getElementById('validationMessage');
+        if (validationMessage) {
+          validationMessage.hidden = true;
+          validationMessage.className = 'validation-message';
+          validationMessage.textContent = '';
+        }
+
+        // Reset wizard state
+        this.currentStep = 1;
+        this.updateProgress();
+        this.updateStepVisibility();
+
+        // Refresh UI components
+        this.updateSelectedActions();
+        this.updateContextsDisplay();
+        this.populateUnicodeCustomization();
+        this.updatePreview();
+
+        // Close modal and notify
+        this.closeModal('resetModal');
+        this.showToast('Configuración limpiada exitosamente', 'success');
+      }
+
+      selectTemplate(templateId) {
+        document.querySelectorAll('.template-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+    
+        const card = document.querySelector(`[data-template="${templateId}"]`);
+        if (card) {
+          card.classList.add('selected');
+        }
+    
+        this.selectedTemplate = templateId;
+      }
+
+      applyTemplate() {
+        if (!this.selectedTemplate) return;
+
+        // Reset current selections
+        this.selectedContexts.clear();
+        this.selectedActions.clear();
+
+        // Apply template-specific configurations
+        switch (this.selectedTemplate) {
+          case 'basic':
+            this.selectedContexts.add('main');
+            this.selectedContexts.add('reader');
+            this.selectedActions.set('reboot', this.actionsData.popular.find(a => a.id === 'reboot'));
+            this.selectedActions.set('dark_mode', this.actionsData.popular.find(a => a.id === 'dark_mode'));
+            this.selectedActions.set('rescan_books', this.actionsData.popular.find(a => a.id === 'rescan_books'));
+            break;
+          case 'power':
+            this.selectedContexts.add('main');
+            this.selectedContexts.add('reader');
+            this.selectedContexts.add('library');
+            this.selectedActions.set('reboot', this.actionsData.all.find(a => a.id === 'reboot'));
+            this.selectedActions.set('shutdown', this.actionsData.all.find(a => a.id === 'shutdown'));
+            this.selectedActions.set('ftp_server', this.actionsData.all.find(a => a.id === 'ftp_server'));
+            this.selectedActions.set('telnet_server', this.actionsData.all.find(a => a.id === 'telnet_server'));
+            this.selectedActions.set('kernel_version', this.actionsData.all.find(a => a.id === 'kernel_version'));
+            break;
+          case 'minimal':
+            this.selectedContexts.add('main');
+            this.selectedActions.set('reboot', this.actionsData.popular.find(a => a.id === 'reboot'));
+            this.selectedActions.set('shutdown', this.actionsData.popular.find(a => a.id === 'shutdown'));
+            this.selectedActions.set('dark_mode', this.actionsData.popular.find(a => a.id === 'dark_mode'));
+            break;
+          case 'unicode':
+            this.selectedContexts.add('main');
+            this.selectedContexts.add('reader');
+            this.selectedActions.set('koreader_unicode', this.actionsData.unicode.find(a => a.id === 'koreader_unicode'));
+            this.selectedActions.set('solitaire_unicode', this.actionsData.unicode.find(a => a.id === 'solitaire_unicode'));
+            this.selectedActions.set('sudoku_unicode', this.actionsData.unicode.find(a => a.id === 'sudoku_unicode'));
+            this.selectedActions.set('pensieve_unicode', this.actionsData.unicode.find(a => a.id === 'pensieve_unicode'));
+            this.selectedActions.set('slumber_unicode', this.actionsData.unicode.find(a => a.id === 'slumber_unicode'));
+            this.selectedActions.set('deluminator', this.actionsData.unicode.find(a => a.id === 'deluminator'));
+            break;
+        }
+
+        this.updatePreview();
+        this.updateSelectedActions();
+        this.updateContextsDisplay();
+        this.closeModal('templatesModal');
+      }
+
+      updateContextsDisplay() {
+        const allSelected = this.areAllContextsSelected();
+
+        document.querySelectorAll('.context-card').forEach(card => {
+          const contextId = card.dataset.context;
+          if (contextId === ALL_CONTEXT_ID) {
+            card.classList.toggle('selected', allSelected);
+          } else {
+            card.classList.toggle('selected', this.selectedContexts.has(contextId));
+          }
+        });
+      }
+
+      // Unicode Customization Methods
+      populateUnicodeCustomization() {
+        this.populateActionSelector();
+        this.populateSymbolsGrid();
+      }
+
+      populateActionSelector() {
+        const selector = document.getElementById('actionSelector');
+        if (!selector) return;
+
+        // Show all selected actions, not just those with single character icons
+        const unicodeActions = Array.from(this.selectedActions.values());
+
+        // Clear existing options except the first one
+        selector.innerHTML = '<option value="">Elige una acción...</option>';
+
+        if (unicodeActions.length === 0) {
+          selector.innerHTML += '<option value="" disabled>No hay acciones seleccionadas</option>';
+          this.selectedActionForUnicode = null;
+          this.updateUnicodePreview('🎨', 'Selecciona una acción');
+          return;
+        }
+
+        unicodeActions.forEach(action => {
+          const option = document.createElement('option');
+          const currentChar = this.customUnicode.get(action.id) || action.icon;
+          option.value = action.id;
+          option.textContent = `${currentChar} ${action.name}`;
+          selector.appendChild(option);
+        });
+
+        if (this.selectedActionForUnicode && this.selectedActions.has(this.selectedActionForUnicode)) {
+          selector.value = this.selectedActionForUnicode;
+          const currentAction = this.selectedActions.get(this.selectedActionForUnicode);
+          if (currentAction) {
+            const currentChar = this.customUnicode.get(currentAction.id) || currentAction.icon;
+            this.updateUnicodePreview(currentChar, currentAction.name);
+          }
+        } else {
+          selector.value = '';
+          this.selectedActionForUnicode = null;
+          this.updateUnicodePreview('🎨', 'Selecciona una acción');
+        }
+      }
+
+      populateSymbolsGrid() {
+        const container = document.getElementById('symbolsGrid');
+        if (!container) return;
+
+        container.innerHTML = this.unicodeSymbols.map(symbol => `
+          <button class="symbol-btn" title="${symbol}">${symbol}</button>
+        `).join('');
+      }
+
+      selectActionForUnicode(actionId) {
+        this.selectedActionForUnicode = actionId;
+    
+        if (!actionId) {
+          this.updateUnicodePreview('🎨', 'Selecciona una acción');
+          return;
+        }
+
+        const action = this.selectedActions.get(actionId);
+        if (action) {
+          const currentChar = this.customUnicode.get(actionId) || action.icon;
+          this.updateUnicodePreview(currentChar, action.name);
+        }
+      }
+
+      selectUnicodeSymbol(symbol) {
+        if (!this.selectedActionForUnicode) {
+          this.showToast('Selecciona una acción antes de elegir un símbolo.', 'warning');
+          return;
+        }
+
+        // Update the custom Unicode mapping
+        this.customUnicode.set(this.selectedActionForUnicode, symbol);
+    
+        // Update preview
+        const action = this.selectedActions.get(this.selectedActionForUnicode);
+        if (action) {
+          this.updateUnicodePreview(symbol, action.name);
+        }
+    
+        // Update the action selector display
+        const selector = document.getElementById('actionSelector');
+        if (selector && selector.value) {
+          const option = selector.querySelector(`option[value="${this.selectedActionForUnicode}"]`);
+          if (option) {
+            option.textContent = `${symbol} ${action.name}`;
+          }
+        }
+    
+        // Update preview
+        this.updatePreview();
+        this.updateSelectedActions();
+      }
+
+      updateUnicodePreview(icon, text) {
+        const preview = document.getElementById('unicodePreview');
+        if (!preview) return;
+
+        const iconElement = preview.querySelector('.preview-icon');
+        const textElement = preview.querySelector('.preview-text');
+    
+        if (iconElement) iconElement.textContent = icon;
+        if (textElement) textElement.textContent = text;
+      }
+
+      getOwnerFormValues() {
+        return {
+          name: document.getElementById('ownerName')?.value.trim() || '',
+          phone: document.getElementById('ownerPhone')?.value.trim() || '',
+          email: document.getElementById('ownerEmail')?.value.trim() || '',
+          address: document.getElementById('ownerAddress')?.value.trim() || ''
+        };
+      }
+
+      saveOwnerInfo() {
+        const info = this.getOwnerFormValues();
+        this.ownerInfo = info;
+
+        try {
+          localStorage.setItem(OWNER_INFO_KEY, JSON.stringify(info));
+          this.showToast('Información del propietario guardada', 'success');
+        } catch (error) {
+          console.warn('No se pudo guardar la información del propietario', error);
+        }
+
+        this.previewOwnerInfo(true);
+      }
+
+      previewOwnerInfo(autoReveal = false) {
+        const info = this.getOwnerFormValues();
+        this.ownerInfo = info;
+
+        const preview = document.getElementById('ownerPreview');
+        const content = document.getElementById('ownerPreviewContent');
+        if (!preview || !content) return;
+
+        const script = this.buildOwnerScript(info);
+        content.textContent = script;
+        preview.hidden = false;
+
+        if (autoReveal) {
+          preview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      buildOwnerScript(info) {
+        const scriptLines = ['#!/bin/sh', "cat <<'EOF'"];
+        const details = ['Información del Propietario'];
+
+        if (info.name) {
+          details.push(`Nombre: ${info.name}`);
+        }
+
+        if (info.phone) {
+          details.push(`Teléfono: ${info.phone}`);
+        }
+
+        if (info.email) {
+          details.push(`Email: ${info.email}`);
+        }
+
+        if (info.address) {
+          details.push('Dirección:');
+          info.address.split(/\r?\n/).forEach(line => {
+            if (line.trim() !== '') {
+              details.push(line.trim());
+            }
+          });
+        }
+
+        if (details.length === 1) {
+          details.push('Aún no has agregado datos personales.');
+        }
+
+        scriptLines.push(...details);
+        scriptLines.push('EOF');
+        return scriptLines.join('\n');
+      }
+
+      loadOwnerInfo() {
+        try {
+          const stored = localStorage.getItem(OWNER_INFO_KEY);
+          if (!stored) return;
+
+          const info = JSON.parse(stored);
+          this.ownerInfo = {
+            name: info?.name || '',
+            phone: info?.phone || '',
+            email: info?.email || '',
+            address: info?.address || ''
+          };
+
+          const { name, phone, email, address } = this.ownerInfo;
+          const nameInput = document.getElementById('ownerName');
+          const phoneInput = document.getElementById('ownerPhone');
+          const emailInput = document.getElementById('ownerEmail');
+          const addressInput = document.getElementById('ownerAddress');
+
+          if (nameInput) nameInput.value = name;
+          if (phoneInput) phoneInput.value = phone;
+          if (emailInput) emailInput.value = email;
+          if (addressInput) addressInput.value = address;
+        } catch (error) {
+          console.warn('No se pudo cargar la información del propietario', error);
+        }
+      }
+
+
+      // Custom Icon Methods
+      handleIconUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Validate file
+        if (file.type !== 'image/png') {
+          this.showToast('Solo se permiten archivos PNG.', 'error');
+          return;
+        }
+
+        if (file.size > 10 * 1024) { // 10KB limit
+          this.showToast('El archivo debe ser menor a 10KB.', 'error');
+          return;
+        }
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.customIcon = {
+            name: file.name,
+            data: e.target.result,
+            size: file.size,
+            path: `/mnt/onboard/.adds/nm/icon/${file.name}`
+          };
+          this.showIconPreview(e.target.result);
+          this.updatePreview();
+        };
+        reader.readAsDataURL(file);
+      }
+
+      showIconPreview(imageData) {
+        const preview = document.getElementById('iconPreview');
+        const image = document.getElementById('previewImage');
+    
+        if (preview && image) {
+          image.src = imageData;
+          preview.hidden = false;
+        }
+      }
+
+      removeCustomIcon() {
+        this.customIcon = null;
+        const preview = document.getElementById('iconPreview');
+        const upload = document.getElementById('iconUpload');
+        const image = document.getElementById('previewImage');
+
+        if (preview) preview.hidden = true;
+        if (upload) upload.value = '';
+        if (image) image.removeAttribute('src');
+        this.updatePreview();
+        this.showToast('Icono personalizado eliminado', 'info');
+      }
+
+      // Validation Method
+      validateConfiguration() {
+        const errors = [];
+        const warnings = [];
+
+        // Check contexts
+        if (this.selectedContexts.size === 0) {
+          errors.push('Debe seleccionar al menos un contexto');
+        }
+
+        // Check actions
+        if (this.selectedActions.size === 0) {
+          errors.push('Debe seleccionar al menos una acción');
+        }
+
+        // Check custom Unicode characters
+        this.customUnicode.forEach((unicode, actionId) => {
+          if (unicode.length !== 1) {
+            warnings.push(`El carácter Unicode para "${this.selectedActions.get(actionId)?.name}" debe ser un solo carácter`);
+          }
+        });
+
+        // Check custom icon
+        if (this.customIcon && this.customIcon.size > 10 * 1024) {
+          warnings.push('El icono personalizado es muy grande (máximo 10KB)');
+        }
+
+        // Show results
+        const message = document.getElementById('validationMessage') || this.createValidationMessage();
+        if (!message) return;
+
+        message.hidden = false;
+        message.setAttribute('role', 'status');
+    
+        if (errors.length > 0) {
+          message.className = 'validation-message error';
+          message.innerHTML = `
+            <strong>❌ Errores encontrados:</strong><br>
+            ${errors.map(error => `• ${error}`).join('<br>')}
+            ${warnings.length > 0 ? `<br><br><strong>⚠️ Advertencias:</strong><br>${warnings.map(warning => `• ${warning}`).join('<br>')}` : ''}
+          `;
+        } else if (warnings.length > 0) {
+          message.className = 'validation-message warning';
+          message.innerHTML = `
+            <strong>⚠️ Advertencias:</strong><br>
+            ${warnings.map(warning => `• ${warning}`).join('<br>')}
+            <br><br><strong>✅ La configuración es válida</strong>
+          `;
+        } else {
+          message.className = 'validation-message success';
+          message.innerHTML = `
+            <strong>✅ Configuración válida</strong><br>
+            ${this.selectedContexts.size} contexto(s) seleccionado(s)<br>
+            ${this.selectedActions.size} acción(es) seleccionada(s)
+            ${this.customIcon ? '<br>Icono personalizado incluido' : ''}
+          `;
+        }
+      }
+
+      createValidationMessage() {
+        const container = document.querySelector('.config-preview');
+        if (!container) return null;
+
+        const message = document.createElement('div');
+        message.id = 'validationMessage';
+        message.className = 'validation-message';
+        container.appendChild(message);
+        return message;
+      }
+
+      // Copy Configuration Method
+      copyConfiguration() {
+        const preview = document.querySelector('#configPreview');
+        if (!preview) return;
+
+        const configText = preview.textContent;
+    
+        // Copy to clipboard
+        navigator.clipboard.writeText(configText).then(() => {
+          this.showToast('Configuración copiada al portapapeles', 'success');
+        }).catch(() => {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = configText;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          this.showToast('Configuración copiada al portapapeles', 'success');
+        });
+      }
+
+      // Export Configuration Method
+      exportConfiguration() {
+        const preview = document.querySelector('#configPreview');
+        if (!preview) return;
+
+        const configText = preview.textContent;
+
+        // Create blob and download
+        const blob = new Blob([configText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'config';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    
+        this.showToast('Configuración exportada exitosamente', 'success');
+      }
+
+      // Show Toast Method
+      showToast(message, type = 'info') {
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+
+        const backgroundByType = {
+          success: 'var(--success)',
+          error: 'var(--error)',
+          warning: 'var(--warning)',
+          info: 'var(--primary)'
+        };
+
+        toast.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: ${backgroundByType[type] || backgroundByType.info};
+          color: var(--white);
+          padding: var(--space-md);
+          border-radius: var(--radius-md);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 1000;
+          font-size: 0.875rem;
+          max-width: 300px;
+        `;
+    
+        document.body.appendChild(toast);
+    
+        // Remove toast after 3 seconds
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 3000);
+      }
+    }
+
+    // Initialize the application
+    let app;
+    document.addEventListener('DOMContentLoaded', () => {
+      app = new NickelMenuBuilder();
+    });
+
+  </script>
+</body>
+</html>
