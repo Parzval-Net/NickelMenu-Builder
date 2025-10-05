@@ -3475,6 +3475,17 @@
         custom: []
       };
 
+        Object.keys(actions).forEach(category => {
+          const seenIds = new Set();
+          actions[category] = actions[category].filter(action => {
+            if (seenIds.has(action.id)) {
+              return false;
+            }
+            seenIds.add(action.id);
+            return true;
+          });
+        });
+
         this.actionsData = actions;
         this.renderActions('popular');
         this.updateStepVisibility(); // Initialize wizard visibility
