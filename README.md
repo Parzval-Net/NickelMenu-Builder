@@ -35,12 +35,7 @@ NickelMenu Builder es una webapp de una sola página que te ayuda a crear config
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── CHANGELOG.md
-└── docs/
-    ├── presentation-outline.md
-    └── release-checklist.md
 ```
-
-La carpeta `Sin uso/` contiene los archivos originales (CSS/JS removidos) a modo de respaldo; puedes eliminarla si prefieres mantener el repositorio minimalista.
 
 ## Uso
 
@@ -50,7 +45,7 @@ La carpeta `Sin uso/` contiene los archivos originales (CSS/JS removidos) a modo
 
 ## Desarrollo
 
-El proyecto está pensado para mantenerse como un único HTML. Si quieres trabajar con los archivos separados, revisa la carpeta `Sin uso/` y vuelve a enlazarlos desde el `<head>`.
+El proyecto está pensado para mantenerse como un único HTML.
 
 ### Comandos sugeridos
 
@@ -59,18 +54,6 @@ No hay scripts, pero puedes usar [http-server](https://www.npmjs.com/package/htt
 ```bash
 npx http-server -o index.html
 ```
-
-## Distribución y despliegue
-
-- Publica el contenido del repositorio (o solo `index.html`) en GitHub Pages, Netlify, Vercel o cualquier hosting estático.
-- Para GitHub Pages basta con habilitar Pages desde la rama principal.
-
-## Roadmap
-
-- [ ] Migrar listado de acciones a un archivo JSON para facilitar aportaciones.
-- [ ] Añadir importador de configuraciones existentes.
-- [ ] Traducir interfaz al inglés.
-- [ ] Tests automatizados con Playwright.
 
 ## Contribuir
 
